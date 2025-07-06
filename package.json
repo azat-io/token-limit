@@ -1,6 +1,6 @@
 {
   "name": "token-limit",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Monitor how many tokens your code and configs consume in AI tools. Set budgets and get alerts when limits are hit",
   "keywords": [
     "tokens",
