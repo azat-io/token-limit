@@ -30,7 +30,23 @@ As these files grow in size and complexity, it becomes crucial to monitor their 
 - **Real token costs** instead of inaccurate file sizes
 - **Cost budgets** in dollars and cents, not just tokens
 
-<img src="https://raw.githubusercontent.com/azat-io/token-limit/main/assets/example.webp" alt="Token Limit CLI" width="600">
+<br>
+
+<picture>
+  <source
+    srcset="https://raw.githubusercontent.com/azat-io/token-limit/main/assets/example-light.webp"
+    media="(prefers-color-scheme: light)"
+  />
+  <source
+    srcset="https://raw.githubusercontent.com/azat-io/token-limit/main/assets/example-dark.webp"
+    media="(prefers-color-scheme: dark)"
+  />
+  <img
+    src="https://raw.githubusercontent.com/azat-io/token-limit/main/assets/example-light.webp"
+    alt="Token Limit CLI Example"
+    width="600"
+  />
+</picture>
 
 ## How It Works
 
