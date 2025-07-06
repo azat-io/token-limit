@@ -14,7 +14,13 @@
 
 Token Limit helps you monitor how many tokens your AI context files consume. Set token budgets for your prompts, documentation, and configs, then get alerts when limits are exceeded.
 
-Keep your AI costs predictable and avoid hitting context window limits.
+Keep your AI costs predictable and avoid hitting context window limits that break your applications.
+
+## Why
+
+AI context files are becoming a standard part of modern development workflows. Projects now commonly include `.context/`, `CLAUDE.md`, `.clinerules`, `.cursorrules`, and other AI instruction files directly in their repositories.
+
+As these files grow in size and complexity, it becomes crucial to monitor their token consumption to avoid unexpected API costs and context window limitations.
 
 ## Key Features
 
