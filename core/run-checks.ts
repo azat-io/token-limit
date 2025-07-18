@@ -39,7 +39,7 @@ export let runChecks = async (
       }
 
       let allContent = fileContents.map(file => file.content).join('\n')
-      let tokenCount = countTokens(allContent, check.model ?? 'gpt-4')
+      let tokenCount = await countTokens(allContent, check.model ?? 'gpt-4')
       let modelName = check.model ?? 'gpt-4'
 
       let result: TokenCheckResult = {

@@ -58,6 +58,7 @@
     "test:usage": "knip"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.56.0",
     "@anthropic-ai/tokenizer": "^0.0.4",
     "cac": "^6.7.14",
     "lilconfig": "^3.1.3",
