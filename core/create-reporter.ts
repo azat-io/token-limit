@@ -24,10 +24,8 @@ type TableRow = [string, string, string?]
  * Formats a model identifier into a human-readable display name.
  *
  * @example
- *   ;```typescript
  *   formatModel('claude-3.5-sonnet') // Returns: 'Claude 3.5 Sonnet'
  *   formatModel('unknown-model') // Returns: 'unknown-model'
- *   ```
  *
  * @param {string} model - The model identifier to format.
  * @returns {string} Human-readable model name or original identifier if not
@@ -50,33 +48,16 @@ let formatModel = (model: string): string => {
 }
 
 /**
- * Formats a token count number into a compact, human-readable string. Uses K
- * for thousands and M for millions to save space in output.
- *
- * @example
- *   ;```typescript
- *   formatTokenCount(500) // Returns: '500'
- *   formatTokenCount(1500) // Returns: '1.5K'
- *   formatTokenCount(2500000) // Returns: '2.5M'
- *   ```
- *
- * @param {number} count - The token count to format.
- * @returns {string} Formatted string representation of the count.
- */
-
-/**
  * Generates help text with configuration file path for error messages. Adapts
  * the message format based on whether the config is in package.json or a
  * dedicated configuration file.
  *
  * @example
- *   ;```typescript
  *   getFixText('Try to reduce usage', { configPath: 'package.json' })
  *   // Returns: 'Try to reduce usage in "token-limit" section of package.json'
  *
  *   getFixText('Try to reduce usage', { configPath: '.token-limit.js' })
  *   // Returns: 'Try to reduce usage at .token-limit.js'
- *   ```
  *
  * @param {string} prefix - The base help message.
  * @param {ReporterConfig} config - Reporter configuration containing the config
@@ -101,11 +82,9 @@ let getFixText = (prefix: string, config: ReporterConfig): string => {
  * configuration settings and silent mode.
  *
  * @example
- *   ;```typescript
  *   shouldShowCheck(passedCheck, { hidePassed: true }, false) // Returns: false
  *   shouldShowCheck(failedCheck, { hidePassed: true }, false) // Returns: true
  *   shouldShowCheck(passedCheck, {}, true) // Returns: false (silent mode)
- *   ```
  *
  * @param {TokenCheckResult} check - The token check result to evaluate.
  * @param {ReporterConfig} config - Reporter configuration with display
@@ -145,7 +124,6 @@ let formatFilePath = (filePath: string): string => {
  * Creates rows for model, token limit, and file information.
  *
  * @example
- *   ;```typescript
  *   buildCheckRows({
  *     model: 'gpt-4',
  *     tokenLimit: 1000,
@@ -153,7 +131,6 @@ let formatFilePath = (filePath: string): string => {
  *     // ... other properties
  *   })
  *   // Returns: [['Model', 'GPT-4'], ['Token limit', '1.0K'], ['File', 'file.ts']]
- *   ```
  *
  * @param {TokenCheckResult} check - The token check result to build rows from.
  * @returns {TableRow[]} Array of table rows with formatted information.
@@ -196,15 +173,21 @@ let buildCheckRows = (check: TokenCheckResult): TableRow[] => {
  * met.
  *
  * @example
- *   ;```typescript
  *   // For exceeded limit:
- *   formatStatusMessage({ passed: false, tokenCount: 1200, tokenLimit: 1000 })
+ *   formatStatusMessage({
+ *     passed: false,
+ *     tokenCount: 1200,
+ *     tokenLimit: 1000,
+ *   })
  *   // Returns: [red('Token limit has exceeded by 200 tokens')]
  *
  *   // For under limit:
- *   formatStatusMessage({ passed: true, tokenCount: 800, tokenLimit: 1000 })
+ *   formatStatusMessage({
+ *     passed: true,
+ *     tokenCount: 800,
+ *     tokenLimit: 1000,
+ *   })
  *   // Returns: [green('Token count is 200 tokens under limit')]
- *   ```
  *
  * @param {TokenCheckResult} check - The token check result to format messages
  *   for.
@@ -255,13 +238,14 @@ let formatStatusMessage = (check: TokenCheckResult): string[] => {
  * alignment.
  *
  * @example
- *   ;```typescript
- *   formatTable([
- *     ['Model', 'GPT-4'],
- *     ['Token limit', '1.0K']
- *   ], { passed: true })
+ *   formatTable(
+ *     [
+ *       ['Model', 'GPT-4'],
+ *       ['Token limit', '1.0K'],
+ *     ],
+ *     { passed: true },
+ *   )
  *   // Returns: ['Model:     GPT-4', 'Token limit: 1.0K'] (with colors)
- *   ```
  *
  * @param {TableRow[]} rows - Array of table rows to format.
  * @param {TokenCheckResult} check - Token check result for styling context.
@@ -297,10 +281,8 @@ let formatTable = (rows: TableRow[], check: TokenCheckResult): string[] => {
  * Useful for CI/CD pipelines and automated processing of token limit results.
  *
  * @example
- *   ;```typescript
- *     let jsonReporter = createJsonReporter(process)
- *     jsonReporter.results(config) // Outputs formatted JSON to stdout
- *     ```
+ *   let jsonReporter = createJsonReporter(process)
+ *   jsonReporter.results(config) // Outputs formatted JSON to stdout
  *
  * @param {unknown} process - Node.js process object for stdout/stderr access.
  * @returns {Reporter} Reporter instance that formats output as JSON.
@@ -365,14 +347,12 @@ let createJsonReporter = (process: NodeJS.Process): Reporter => {
  * helpful error information.
  *
  * @example
- *   ;```typescript
  *   let humanReporter = createHumanReporter(process, false)
  *   humanReporter.results(config) // Outputs formatted text to stdout
  *
  *   // Silent mode example
  *   let silentReporter = createHumanReporter(process, true)
  *   silentReporter.results(config) // Only shows failures, clears if nothing to show
- *   ```
  *
  * @param {unknown} process - Node.js process object for stdout/stderr access.
  * @param {boolean} isSilentMode - Whether to operate in silent mode (only show
@@ -468,7 +448,6 @@ let createHumanReporter = (
  * formats and modes.
  *
  * @example
- *   ;```typescript
  *   // Create JSON reporter
  *   let jsonReporter = createReporter(process, true)
  *
@@ -477,7 +456,6 @@ let createHumanReporter = (
  *
  *   // Create silent human reporter (only shows failures)
  *   let silentReporter = createReporter(process, false, true)
- *   ```
  *
  * @param {unknown} process - Node.js process object for stdout/stderr access.
  * @param {boolean} isJSON - Whether to create a JSON reporter (true) or human

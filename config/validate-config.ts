@@ -29,14 +29,12 @@ let knownModels = Object.values(supportedModels).flatMap(provider =>
  * Validates the token limit configuration object.
  *
  * @example
- *   ;```typescript
  *   let config = [{ path: 'CLAUDE.md', limit: '200k' }]
  *   let result = validateConfig(config)
  *
  *   if (!result.isValid) {
  *     console.error('Configuration errors:', result.errors)
  *   }
- *   ```
  *
  * @param {TokenLimitConfig} config - The configuration object to validate.
  * @returns {ValidationResult} Validation result with errors.

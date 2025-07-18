@@ -89,13 +89,11 @@ let processConfig = (
  * Supports TypeScript, JavaScript, JSON, and package.json configurations.
  *
  * @example
- *   ;```typescript
  *   // Search for config automatically
  *   let { config, configPath } = await loadConfig()
  *
  *   // Load specific config file
  *   let { config } = await loadConfig('./my-config.ts')
- *   ```
  *
  * @param {string | undefined} configPath - Optional path to a specific
  *   configuration file.

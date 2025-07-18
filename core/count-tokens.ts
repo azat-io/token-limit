@@ -14,10 +14,8 @@ import { supportedModels } from '../data'
  * 'o200k_base' for GPT-4o).
  *
  * @example
- *   ;```typescript
  *   const tokens = countOpenAITokens('Hello world!', 'gpt-4o', 'o200k_base')
  *   console.log(tokens) // e.g., 3
- *   ```
  *
  * @param {string} text - The text to tokenize and count
  * @param {string} model - The OpenAI model name (e.g., 'gpt-4o',
@@ -100,7 +98,6 @@ let detectProviderFromSupportedModels = (model: string): string | null => {
  * - Unknown models: Falls back to OpenAI tokenizer with warning
  *
  * @example
- *   ;```typescript
  *   // Count tokens for different models
  *   const gptTokens = countTokens('Hello world!', 'gpt-4')
  *   const claudeTokens = countTokens('Hello world!', 'claude-3.5-sonnet')
@@ -114,7 +111,6 @@ let detectProviderFromSupportedModels = (model: string): string | null => {
  *   if (tokens > 200000) {
  *     console.warn('Content exceeds Claude context window')
  *   }
- *   ```
  *
  * @param {string} text - The text content to analyze for token count. Can be
  *   any string including code, markdown, or plain text.

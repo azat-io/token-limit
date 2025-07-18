@@ -28,12 +28,10 @@ export interface ModelConfig {
    * - Usage analytics and reporting
    *
    * @example
-   *   ;```typescript
    *   {
-   *     input: 0.01,   // $0.01 per 1k input tokens
-   *     output: 0.03   // $0.03 per 1k output tokens
+   *     "input": 0.01, // $0.01 per 1k input tokens
+   *     "output": 0.03 // $0.03 per 1k output tokens
    *   }
-   *   ```
    */
   costPer1kTokens?: {
     /** Cost per 1000 output tokens (USD) */
