@@ -18,11 +18,11 @@ vi.mock('picocolors', () => ({
   },
 }))
 
-let createMockProcess = (): {
+function createMockProcess(): {
   getStdout(): string
   getStderr(): string
   clearOutput(): void
-} & NodeJS.Process => {
+} & NodeJS.Process {
   let stdout = ''
   let stderr = ''
 
@@ -52,26 +52,30 @@ let createMockProcess = (): {
   } & NodeJS.Process
 }
 
-let createTestCheck = (
+function createTestCheck(
   overrides: Partial<TokenCheckResult> = {},
-): TokenCheckResult => ({
-  name: 'Test Check',
-  files: ['test.ts'],
-  tokenLimit: 1000,
-  tokenCount: 500,
-  model: 'gpt-4',
-  passed: true,
-  cost: 0,
-  ...overrides,
-})
+): TokenCheckResult {
+  return {
+    name: 'Test Check',
+    files: ['test.ts'],
+    tokenLimit: 1000,
+    tokenCount: 500,
+    model: 'gpt-4',
+    passed: true,
+    cost: 0,
+    ...overrides,
+  }
+}
 
-let createTestConfig = (
+function createTestConfig(
   overrides: Partial<ReporterConfig> = {},
-): ReporterConfig => ({
-  checks: [createTestCheck()],
-  failed: false,
-  ...overrides,
-})
+): ReporterConfig {
+  return {
+    checks: [createTestCheck()],
+    failed: false,
+    ...overrides,
+  }
+}
 
 describe('createReporter', () => {
   let mockProcess: ReturnType<typeof createMockProcess>

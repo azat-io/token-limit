@@ -39,7 +39,7 @@ let knownModels = Object.values(supportedModels).flatMap(provider =>
  * @param {TokenLimitConfig} config - The configuration object to validate.
  * @returns {ValidationResult} Validation result with errors.
  */
-export let validateConfig = (config: TokenLimitConfig): ValidationResult => {
+export function validateConfig(config: TokenLimitConfig): ValidationResult {
   let errors: ValidationError[] = []
 
   if (!Array.isArray(config)) {
@@ -82,97 +82,17 @@ export let validateConfig = (config: TokenLimitConfig): ValidationResult => {
 }
 
 /**
- * Validates a single token check configuration object.
- *
- * @param {TokenCheck} check - The check object to validate.
- * @param {string} basePath - The base path for error reporting.
- * @param {ValidationError[]} errors - Array to collect validation errors.
- */
-let validateCheck = (
-  check: TokenCheck,
-  basePath: string,
-  errors: ValidationError[],
-): void => {
-  // eslint-disable-next-line typescript/no-unnecessary-condition
-  if (check.path === undefined) {
-    errors.push({
-      message: 'Path is required for each check',
-      path: `${basePath}.path`,
-    })
-  } else {
-    validatePath(check.path, `${basePath}.path`, errors)
-  }
-
-  if (check.limit !== undefined) {
-    validateLimit(check.limit as string | number, `${basePath}.limit`, errors)
-  }
-
-  if (check.model !== undefined) {
-    validateModel(check.model, `${basePath}.model`, errors)
-  }
-}
-
-/**
- * Validates the path field of a token check configuration.
- *
- * @param {string | string[]} path - The path value to validate (string or
- *   string array).
- * @param {string} fieldPath - The field path for error reporting.
- * @param {ValidationError[]} errors - Array to collect validation errors.
- */
-let validatePath = (
-  path: string[] | string,
-  fieldPath: string,
-  errors: ValidationError[],
-): void => {
-  if (typeof path === 'string') {
-    if (path.trim() === '') {
-      errors.push({
-        message: 'Path cannot be empty',
-        path: fieldPath,
-      })
-    }
-  } else if (Array.isArray(path)) {
-    if (path.length === 0) {
-      errors.push({
-        message: 'Path array cannot be empty',
-        path: fieldPath,
-      })
-    }
-
-    for (let [index, pathElement] of path.entries()) {
-      if (typeof pathElement !== 'string') {
-        errors.push({
-          message: 'All path elements must be strings',
-          path: `${fieldPath}[${index}]`,
-        })
-      } else if (pathElement.trim() === '') {
-        errors.push({
-          message: 'Path element cannot be empty',
-          path: `${fieldPath}[${index}]`,
-        })
-      }
-    }
-  } else {
-    errors.push({
-      message: 'Path must be a string or array of strings',
-      path: fieldPath,
-    })
-  }
-}
-
-/**
  * Validates the limit field format and value.
  *
  * @param {string | number} limit - The limit value to validate.
  * @param {string} fieldPath - The field path for error reporting.
  * @param {ValidationError[]} errors - Array to collect validation errors.
  */
-let validateLimit = (
+function validateLimit(
   limit: string | number,
   fieldPath: string,
   errors: ValidationError[],
-): void => {
+): void {
   if (typeof limit === 'number') {
     if (limit <= 0) {
       errors.push({
@@ -210,17 +130,97 @@ let validateLimit = (
 }
 
 /**
+ * Validates the path field of a token check configuration.
+ *
+ * @param {string | string[]} path - The path value to validate (string or
+ *   string array).
+ * @param {string} fieldPath - The field path for error reporting.
+ * @param {ValidationError[]} errors - Array to collect validation errors.
+ */
+function validatePath(
+  path: string[] | string,
+  fieldPath: string,
+  errors: ValidationError[],
+): void {
+  if (typeof path === 'string') {
+    if (path.trim() === '') {
+      errors.push({
+        message: 'Path cannot be empty',
+        path: fieldPath,
+      })
+    }
+  } else if (Array.isArray(path)) {
+    if (path.length === 0) {
+      errors.push({
+        message: 'Path array cannot be empty',
+        path: fieldPath,
+      })
+    }
+
+    for (let [index, pathElement] of path.entries()) {
+      if (typeof pathElement !== 'string') {
+        errors.push({
+          message: 'All path elements must be strings',
+          path: `${fieldPath}[${index}]`,
+        })
+      } else if (pathElement.trim() === '') {
+        errors.push({
+          message: 'Path element cannot be empty',
+          path: `${fieldPath}[${index}]`,
+        })
+      }
+    }
+  } else {
+    errors.push({
+      message: 'Path must be a string or array of strings',
+      path: fieldPath,
+    })
+  }
+}
+
+/**
+ * Validates a single token check configuration object.
+ *
+ * @param {TokenCheck} check - The check object to validate.
+ * @param {string} basePath - The base path for error reporting.
+ * @param {ValidationError[]} errors - Array to collect validation errors.
+ */
+function validateCheck(
+  check: TokenCheck,
+  basePath: string,
+  errors: ValidationError[],
+): void {
+  // eslint-disable-next-line typescript/no-unnecessary-condition
+  if (check.path === undefined) {
+    errors.push({
+      message: 'Path is required for each check',
+      path: `${basePath}.path`,
+    })
+  } else {
+    validatePath(check.path, `${basePath}.path`, errors)
+  }
+
+  if (check.limit !== undefined) {
+    validateLimit(check.limit as string | number, `${basePath}.limit`, errors)
+  }
+
+  if (check.model !== undefined) {
+    validateModel(check.model, `${basePath}.model`, errors)
+  }
+}
+
+/**
  * Validates the model field and errors on unknown models.
  *
  * @param {string} model - The model name to validate.
  * @param {string} fieldPath - The field path for error reporting.
  * @param {ValidationError[]} errors - Array to collect validation errors.
  */
-let validateModel = (
+function validateModel(
   model: string,
   fieldPath: string,
   errors: ValidationError[],
-): void => {
+): void {
   if (!knownModels.includes(model)) {
     errors.push({
       message: `Unknown model "${model}". Known models: ${knownModels.join(', ')}`,

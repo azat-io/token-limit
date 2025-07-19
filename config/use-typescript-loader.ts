@@ -7,9 +7,9 @@ import type { TokenLimitConfig } from '../types/token-limit-config.js'
  * @returns {Promise<TokenLimitConfig | undefined>} The loaded configuration or
  *   undefined if no default export.
  */
-export let useTypescriptLoader = async (
+export async function useTypescriptLoader(
   filePath: string,
-): Promise<TokenLimitConfig | undefined> => {
+): Promise<TokenLimitConfig | undefined> {
   let jiti = (await import('jiti')).createJiti(import.meta.url, {
     interopDefault: true,
   })

@@ -46,43 +46,6 @@ let configOptions = {
 }
 
 /**
- * Processes the configuration by resolving paths relative to config directory.
- *
- * @param {TokenLimitConfig} config - The raw configuration array.
- * @param {string} configDirectory - Directory containing the configuration
- *   file.
- * @returns {TokenLimitConfig} Processed configuration with resolved paths.
- */
-let processConfig = (
-  config: TokenLimitConfig,
-  configDirectory: string,
-): TokenLimitConfig =>
-  config.map(check => {
-    let processed = { ...check }
-
-    if (typeof check.path === 'string') {
-      processed.path = isAbsolute(check.path)
-        ? check.path
-        : join(configDirectory, check.path)
-    } else if (Array.isArray(check.path)) {
-      processed.path = check.path.map(path =>
-        isAbsolute(path) ? path : join(configDirectory, path),
-      )
-    }
-
-    if (!processed.name && processed.path) {
-      let paths = Array.isArray(processed.path)
-        ? processed.path
-        : [processed.path]
-      processed.name = paths
-        .map(path => relative(configDirectory, path))
-        .join(', ')
-    }
-
-    return processed
-  })
-
-/**
  * Loads the token limit configuration from various sources.
  *
  * Searches for configuration in standard places or loads from a specific path.
@@ -103,10 +66,10 @@ let processConfig = (
  *   configuration with metadata.
  * @throws Error if configuration is not found.
  */
-export let loadConfig = async (
+export async function loadConfig(
   configPath?: string,
   searchFrom: string = process.cwd(),
-): Promise<ConfigResult> => {
+): Promise<ConfigResult> {
   let explorer = lilconfig('token-limit', configOptions)
 
   let result
@@ -135,4 +98,42 @@ export let loadConfig = async (
     config: processedConfig,
     configDirectory,
   }
+}
+
+/**
+ * Processes the configuration by resolving paths relative to config directory.
+ *
+ * @param {TokenLimitConfig} config - The raw configuration array.
+ * @param {string} configDirectory - Directory containing the configuration
+ *   file.
+ * @returns {TokenLimitConfig} Processed configuration with resolved paths.
+ */
+function processConfig(
+  config: TokenLimitConfig,
+  configDirectory: string,
+): TokenLimitConfig {
+  return config.map(check => {
+    let processed = { ...check }
+
+    if (typeof check.path === 'string') {
+      processed.path = isAbsolute(check.path)
+        ? check.path
+        : join(configDirectory, check.path)
+    } else if (Array.isArray(check.path)) {
+      processed.path = check.path.map(path =>
+        isAbsolute(path) ? path : join(configDirectory, path),
+      )
+    }
+
+    if (!processed.name && processed.path) {
+      let paths = Array.isArray(processed.path)
+        ? processed.path
+        : [processed.path]
+      processed.name = paths
+        .map(path => relative(configDirectory, path))
+        .join(', ')
+    }
+
+    return processed
+  })
 }

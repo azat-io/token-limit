@@ -15,10 +15,10 @@ import { countTokens } from './count-tokens'
  * @returns {Promise<ReporterConfig>} Promise resolving to reporter
  *   configuration with results
  */
-export let runChecks = async (
+export async function runChecks(
   config: TokenLimitConfig,
   configPath?: string,
-): Promise<ReporterConfig> => {
+): Promise<ReporterConfig> {
   let checks: TokenCheckResult[] = []
   let failed = false
 

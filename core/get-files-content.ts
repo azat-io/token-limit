@@ -35,9 +35,9 @@ interface FileContent {
  * @throws Will not throw for individual file read errors, but may throw for
  *   glob pattern errors or other system-level issues.
  */
-export let getFilesContent = async (
+export async function getFilesContent(
   patterns: string[] | string,
-): Promise<FileContent[]> => {
+): Promise<FileContent[]> {
   if (!patterns || (Array.isArray(patterns) && patterns.length === 0)) {
     return []
   }

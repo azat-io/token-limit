@@ -9,7 +9,7 @@ import { supportedModels } from '../data'
  * @returns {ModelConfig | undefined} Model configuration or undefined if not
  *   found.
  */
-export let getModelConfig = (modelName: string): ModelConfig | undefined => {
+export function getModelConfig(modelName: string): ModelConfig | undefined {
   for (let provider of Object.values(supportedModels)) {
     if (modelName in provider) {
       return provider[modelName as keyof typeof provider]

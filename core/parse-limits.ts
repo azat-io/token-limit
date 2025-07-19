@@ -14,6 +14,109 @@ interface ParsedLimit {
 }
 
 /**
+ * Parse limit configuration into normalized format.
+ *
+ * @param {(TokenLimit & CostLimit)
+ *   | TokenLimit
+ *   | CostLimit
+ *   | string
+ *   | number} limit
+ *   - The limit configuration to parse. Can be a simple number/string for token
+ *       limits, token limit object, cost limit object, or combined limits.
+ *
+ * @param {string} model - Model name to use for context window limits.
+ * @returns {ParsedLimit} The parsed limit configuration with normalized values.
+ */
+export function parseLimit(
+  limit: (TokenLimit & CostLimit) | TokenLimit | CostLimit | string | number,
+  model: string,
+): ParsedLimit {
+  if (typeof limit === 'string' || typeof limit === 'number') {
+    if (typeof limit === 'string') {
+      let normalizedLimit = limit.toLowerCase().trim()
+      if (
+        normalizedLimit.includes('$') ||
+        normalizedLimit.includes('c') ||
+        normalizedLimit.includes('cent') ||
+        normalizedLimit.includes('dollar')
+      ) {
+        return {
+          cost: parseCostLimit(limit),
+        }
+      }
+    }
+
+    return {
+      tokens: parseTokenLimit(limit, model),
+    }
+  }
+
+  let result: ParsedLimit = {}
+
+  if ('tokens' in limit) {
+    result.tokens = parseTokenLimit(limit.tokens, model)
+  }
+
+  if ('cost' in limit) {
+    result.cost = parseCostLimit(limit.cost)
+  }
+
+  return result
+}
+
+/**
+ * Calculate cost for given tokens and model.
+ *
+ * @param {number} tokens - Number of tokens to calculate cost for.
+ * @param {string} model - Model name to get pricing information from.
+ * @returns {number} The calculated cost in USD.
+ */
+export function calculateCost(tokens: number, model: string): number {
+  let currentModel = openRouterModels[
+    model as SupportedModelNames
+  ] as unknown as ModelRouterData | undefined
+
+  let costPer1k: number = currentModel?.costPer1kTokens ?? 0
+  if (!costPer1k) {
+    return 0
+  }
+
+  let tokensInThousands = tokens / 1000
+
+  return tokensInThousands * costPer1k
+}
+
+/**
+ * Format tokens as a readable string.
+ *
+ * @param {number} tokens - Number of tokens to format
+ * @returns {string} Formatted tokens string
+ */
+export function formatTokens(tokens: number): string {
+  if (tokens >= 1_000_000) {
+    return `${(tokens / 1_000_000).toFixed(1)}M`
+  }
+  if (tokens >= 1000) {
+    return `${(tokens / 1000).toFixed(1)}k`
+  }
+  return tokens.toLocaleString()
+}
+
+/**
+ * Format cost as a readable string.
+ *
+ * @param {number} cost - Cost value in USD
+ * @returns {string} Formatted cost string
+ */
+export function formatCost(cost: number): string {
+  if (cost < 0.01) {
+    return `$${cost.toFixed(3)}`
+  }
+
+  return `$${cost.toFixed(cost < 1 ? 3 : 2)}`
+}
+
+/**
  * Parse token limit from various formats.
  *
  * @param {string | number} limit - The token limit to parse. Can be a number
@@ -21,7 +124,7 @@ interface ParsedLimit {
  * @param {string} model - Model name to use for context window limits.
  * @returns {number} The parsed token limit.
  */
-let parseTokenLimit = (limit: string | number, model: string): number => {
+function parseTokenLimit(limit: string | number, model: string): number {
   if (typeof limit === 'number') {
     if (!Number.isFinite(limit) || limit < 0) {
       throw new Error(
@@ -78,7 +181,7 @@ let parseTokenLimit = (limit: string | number, model: string): number => {
  *   text format (1 dollar).
  * @returns {number} The parsed cost limit in USD.
  */
-let parseCostLimit = (cost: string | number): number => {
+function parseCostLimit(cost: string | number): number {
   if (typeof cost === 'number') {
     if (!Number.isFinite(cost) || cost < 0) {
       throw new Error(
@@ -119,107 +222,4 @@ let parseCostLimit = (cost: string | number): number => {
   throw new Error(
     `Invalid cost limit format: "${cost}". Expected formats: number, "$0.05", "5c", "10 cents", or "1 dollar".`,
   )
-}
-
-/**
- * Calculate cost for given tokens and model.
- *
- * @param {number} tokens - Number of tokens to calculate cost for.
- * @param {string} model - Model name to get pricing information from.
- * @returns {number} The calculated cost in USD.
- */
-export let calculateCost = (tokens: number, model: string): number => {
-  let currentModel = openRouterModels[
-    model as SupportedModelNames
-  ] as unknown as ModelRouterData | undefined
-
-  let costPer1k: number = currentModel?.costPer1kTokens ?? 0
-  if (!costPer1k) {
-    return 0
-  }
-
-  let tokensInThousands = tokens / 1000
-
-  return tokensInThousands * costPer1k
-}
-
-/**
- * Parse limit configuration into normalized format.
- *
- * @param {(TokenLimit & CostLimit)
- *   | TokenLimit
- *   | CostLimit
- *   | string
- *   | number} limit
- *   - The limit configuration to parse. Can be a simple number/string for token
- *       limits, token limit object, cost limit object, or combined limits.
- *
- * @param {string} model - Model name to use for context window limits.
- * @returns {ParsedLimit} The parsed limit configuration with normalized values.
- */
-export let parseLimit = (
-  limit: (TokenLimit & CostLimit) | TokenLimit | CostLimit | string | number,
-  model: string,
-): ParsedLimit => {
-  if (typeof limit === 'string' || typeof limit === 'number') {
-    if (typeof limit === 'string') {
-      let normalizedLimit = limit.toLowerCase().trim()
-      if (
-        normalizedLimit.includes('$') ||
-        normalizedLimit.includes('c') ||
-        normalizedLimit.includes('cent') ||
-        normalizedLimit.includes('dollar')
-      ) {
-        return {
-          cost: parseCostLimit(limit),
-        }
-      }
-    }
-
-    return {
-      tokens: parseTokenLimit(limit, model),
-    }
-  }
-
-  let result: ParsedLimit = {}
-
-  if ('tokens' in limit) {
-    result.tokens = parseTokenLimit(limit.tokens, model)
-  }
-
-  if ('cost' in limit) {
-    result.cost = parseCostLimit(limit.cost)
-  }
-
-  return result
-}
-
-/**
- * Format cost as a readable string.
- *
- * @param {number} cost - Cost value in USD
- * @returns {string} Formatted cost string
- */
-export let formatCost = (cost: number): string => {
-  if (cost < 0.01) {
-    return `$${cost.toFixed(3)}`
-  }
-
-  return `$${cost.toFixed(cost < 1 ? 3 : 2)}`
-}
-
-/**
- * Format tokens as a readable string.
- *
- * @param {number} tokens - Number of tokens to format
- * @returns {string} Formatted tokens string
- */
-export let formatTokens = (tokens: number): string => {
-  if (tokens >= 1_000_000) {
-    return `${(tokens / 1_000_000).toFixed(1)}M`
-  }
-  if (tokens >= 1000) {
-    return `${(tokens / 1000).toFixed(1)}k`
-  }
-  return tokens.toLocaleString()
 }

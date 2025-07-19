@@ -8,9 +8,9 @@ import type { TokenLimitConfig } from '../types/token-limit-config'
  * @param {string} filePath - Path to the file to import.
  * @returns {Promise<TokenLimitConfig>} The default export from the module.
  */
-export let useBaseLoader = async (
+export async function useBaseLoader(
   filePath: string,
-): Promise<TokenLimitConfig> => {
+): Promise<TokenLimitConfig> {
   let module = (await import(pathToFileURL(filePath).href)) as {
     default: TokenLimitConfig
   }

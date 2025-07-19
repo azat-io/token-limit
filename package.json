@@ -67,7 +67,7 @@
     "tinyglobby": "^0.2.14"
   },
   "devDependencies": {
-    "@azat-io/eslint-config": "^2.38.0",
+    "@azat-io/eslint-config": "^2.39.0",
     "@azat-io/typescript-config": "^1.0.0",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",

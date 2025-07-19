@@ -8,4 +8,6 @@ import type { TokenLimitConfig } from '../types/token-limit-config'
  *   checks.
  * @returns {TokenLimitConfig} The provided configuration object.
  */
-export let defineConfig = (config: TokenLimitConfig): TokenLimitConfig => config
+export function defineConfig(config: TokenLimitConfig): TokenLimitConfig {
+  return config
+}

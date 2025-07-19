@@ -5,5 +5,6 @@
  * @param {string[]} paths - Array of file paths to normalize
  * @returns {string[]} Normalized paths with forward slashes
  */
-export let normalizeFilePaths = (paths: string[]): string[] =>
-  paths.map(path => path.replaceAll('\\', '/'))
+export function normalizeFilePaths(paths: string[]): string[] {
+  return paths.map(path => path.replaceAll('\\', '/'))
+}

@@ -44,7 +44,7 @@ interface TokenLimitOptions {
  * @returns {void} This function does not return a value but may exit the
  *   process.
  */
-export let run = (): void => {
+export function run(): void {
   let cli = cac('token-limit')
 
   cli.version(version).help()
