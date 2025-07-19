@@ -144,12 +144,9 @@ export let supportedModels = {
   openai: {
     // ... existing models
     'gpt-4-new-model': {
-      costPer1kTokens: { input: 0.01, output: 0.03 },
       encoding: 'cl100k_base',
-      contextWindow: 128_000,
       name: 'GPT-4 New Model',
       provider: 'openai',
-      maxOutput: 4096,
     },
   },
   // ... other providers
@@ -160,11 +157,8 @@ export let supportedModels = {
 
 Every model must include:
 
-- **`costPer1kTokens`** - Pricing per 1000 tokens (input/output)
-- **`contextWindow`** - Maximum tokens the model can process
 - **`name`** - Human-readable model name
 - **`provider`** - AI provider identifier
-- **`maxOutput`** - Maximum tokens the model can generate
 
 ### 3. Optional Properties
 
@@ -207,11 +201,8 @@ export let supportedModels = {
   // ... existing providers
   newprovider: {
     'model-name': {
-      costPer1kTokens: { input: 0.001, output: 0.002 },
-      contextWindow: 100_000,
       name: 'New Provider Model',
       provider: 'newprovider',
-      maxOutput: 4096,
     },
   },
 }

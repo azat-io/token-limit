@@ -15,33 +15,6 @@
  */
 export interface ModelConfig {
   /**
-   * Pricing information for API usage (optional).
-   *
-   * Costs are typically measured per 1000 tokens and often differ between input
-   * (prompt) and output (response) tokens. Input is usually cheaper.
-   *
-   * Useful for:
-   *
-   * - Cost estimation before API calls
-   * - Budget planning and optimization
-   * - Comparing model cost-effectiveness
-   * - Usage analytics and reporting
-   *
-   * @example
-   *   {
-   *     "input": 0.01, // $0.01 per 1k input tokens
-   *     "output": 0.03 // $0.03 per 1k output tokens
-   *   }
-   */
-  costPer1kTokens?: {
-    /** Cost per 1000 output tokens (USD) */
-    output: number
-
-    /** Cost per 1000 input tokens (USD) */
-    input: number
-  }
-
-  /**
    * List of special capabilities this model supports (optional).
    *
    * Helps filter and select appropriate models for specific tasks:
@@ -54,24 +27,6 @@ export interface ModelConfig {
    * - `'streaming'` - Supports real-time response streaming
    */
   capabilities?: string[]
-
-  /**
-   * Maximum number of tokens the model can process in a single request.
-   *
-   * This includes both input tokens (your prompt/content) and output tokens
-   * (the model's response). For example, if contextWindow is 128000 and you
-   * send 120000 tokens of input, only 8000 tokens remain for the response.
-   *
-   * Context windows vary dramatically:
-   *
-   * - Small: 4k-16k tokens (~3-12k words)
-   * - Medium: 32k-128k tokens (~24-96k words)
-   * - Large: 200k-1M+ tokens (~150k-750k+ words)
-   *
-   * @example
-   *   128000 // 128k tokens = ~96k words = ~300 pages
-   */
-  contextWindow: number
 
   /**
    * Whether this model is deprecated and scheduled for removal (optional).
@@ -111,24 +66,6 @@ export interface ModelConfig {
    * @see {@link https://github.com/openai/tiktoken/blob/main/tiktoken_ext/openai_public.py} OpenAI tokenization registry
    */
   encoding?: string
-
-  /**
-   * Maximum number of tokens the model can generate in its response.
-   *
-   * This is separate from and counted within the contextWindow. Some models
-   * have different limits for input vs output tokens. Critical for:
-   *
-   * - Long-form content generation
-   * - Code generation
-   * - Detailed analysis tasks
-   *
-   * Note: Actual output is often limited by the remaining context window space
-   * after accounting for input tokens.
-   *
-   * @example
-   *   4096 // Can generate up to ~3k words in response
-   */
-  maxOutput: number
 
   /**
    * The AI provider/company that created and hosts this model.

@@ -29,6 +29,9 @@ As these files grow in size and complexity, it becomes crucial to monitor their 
 - **Flexible configuration** for different AI use cases
 - **Real token costs** instead of inaccurate file sizes
 - **Cost budgets** in dollars and cents, not just tokens
+- **Up-to-date pricing** from OpenRouter API instead of hardcoded values
+
+###
 
 <br>
 

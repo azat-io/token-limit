@@ -1,6 +1,8 @@
+import type { SupportedModelNames } from '../types/supported-model-names'
 import type { TokenLimit, CostLimit } from '../types/token-limit-config'
+import type { ModelRouterData } from '../types/model-router-data'
 
-import { getModelConfig } from './get-model-config'
+import { openRouterModels } from '../data/open-router-models'
 
 /** Parsed limit configuration with normalized values. */
 interface ParsedLimit {
@@ -14,10 +16,12 @@ interface ParsedLimit {
 /**
  * Parse token limit from various formats.
  *
- * @param {string | number} limit - The token limit to parse.
+ * @param {string | number} limit - The token limit to parse. Can be a number
+ *   (tokens), string with suffixes (100k, 1.5m), or model name.
+ * @param {string} model - Model name to use for context window limits.
  * @returns {number} The parsed token limit.
  */
-let parseTokenLimit = (limit: string | number): number => {
+let parseTokenLimit = (limit: string | number, model: string): number => {
   if (typeof limit === 'number') {
     if (!Number.isFinite(limit) || limit < 0) {
       throw new Error(
@@ -29,9 +33,12 @@ let parseTokenLimit = (limit: string | number): number => {
 
   let normalizedLimit = limit.toLowerCase().trim()
 
-  let modelConfig = getModelConfig(normalizedLimit)
-  if (modelConfig?.contextWindow) {
-    return modelConfig.contextWindow
+  let currentModel = openRouterModels[
+    model as SupportedModelNames
+  ] as unknown as ModelRouterData | undefined
+
+  if (currentModel?.contextWindow) {
+    return currentModel.contextWindow
   }
 
   let match = normalizedLimit.match(
@@ -122,15 +129,18 @@ let parseCostLimit = (cost: string | number): number => {
  * @returns {number} The calculated cost in USD.
  */
 export let calculateCost = (tokens: number, model: string): number => {
-  let modelConfig = getModelConfig(model)
-  if (!modelConfig?.costPer1kTokens) {
+  let currentModel = openRouterModels[
+    model as SupportedModelNames
+  ] as unknown as ModelRouterData | undefined
+
+  let costPer1k: number = currentModel?.costPer1kTokens ?? 0
+  if (!costPer1k) {
     return 0
   }
 
-  let costPer1k = modelConfig.costPer1kTokens
   let tokensInThousands = tokens / 1000
 
-  return tokensInThousands * costPer1k.input
+  return tokensInThousands * costPer1k
 }
 
 /**
@@ -144,10 +154,12 @@ export let calculateCost = (tokens: number, model: string): number => {
  *   - The limit configuration to parse. Can be a simple number/string for token
  *       limits, token limit object, cost limit object, or combined limits.
  *
+ * @param {string} model - Model name to use for context window limits.
  * @returns {ParsedLimit} The parsed limit configuration with normalized values.
  */
 export let parseLimit = (
   limit: (TokenLimit & CostLimit) | TokenLimit | CostLimit | string | number,
+  model: string,
 ): ParsedLimit => {
   if (typeof limit === 'string' || typeof limit === 'number') {
     if (typeof limit === 'string') {
@@ -165,14 +177,14 @@ export let parseLimit = (
     }
 
     return {
-      tokens: parseTokenLimit(limit),
+      tokens: parseTokenLimit(limit, model),
     }
   }
 
   let result: ParsedLimit = {}
 
   if ('tokens' in limit) {
-    result.tokens = parseTokenLimit(limit.tokens)
+    result.tokens = parseTokenLimit(limit.tokens, model)
   }
 
   if ('cost' in limit) {

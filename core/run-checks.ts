@@ -53,7 +53,7 @@ export let runChecks = async (
       if (check.limit === undefined) {
         result.cost = calculateCost(tokenCount, modelName)
       } else {
-        let parsedLimit = parseLimit(check.limit)
+        let parsedLimit = parseLimit(check.limit, modelName)
 
         result.cost = calculateCost(tokenCount, modelName)
 
