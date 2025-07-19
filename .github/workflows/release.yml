@@ -51,8 +51,8 @@ jobs:
         run: |
           pnpm social-changelog \
             --org azat-io \
-            --repo eslint-plugin-perfectionist \
-            --name "ESLint Plugin Perfectionist" \
+            --repo token-limit \
+            --name "Token Limit" \
             > social-post.txt
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
