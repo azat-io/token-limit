@@ -43,13 +43,12 @@ let countOpenAITokens = (
   } catch (error) {
     console.error(`Error counting OpenAI tokens for model "${model}":`, error)
     return Math.ceil(text.length / 4)
+    /* v8 ignore next-line */
   } finally {
-    if (encoder) {
-      try {
-        encoder.free()
-      } catch (freeError) {
-        console.warn('Failed to free tiktoken encoder:', freeError)
-      }
+    try {
+      encoder?.free()
+    } catch (freeError) {
+      console.warn('Failed to free tiktoken encoder:', freeError)
     }
   }
 }
