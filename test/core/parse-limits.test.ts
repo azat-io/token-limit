@@ -44,8 +44,8 @@ describe('parseLimit', () => {
       expect(() => parseLimit('NaNk', '')).toThrow(
         'Invalid token limit format: "NaNk"',
       )
-      expect(() => parseLimit('Infinityk', '')).toThrow(
-        'Invalid token limit format: "Infinityk"',
+      expect(() => parseLimit('Infinity', '')).toThrow(
+        'Invalid token limit format: "Infinity"',
       )
     })
 

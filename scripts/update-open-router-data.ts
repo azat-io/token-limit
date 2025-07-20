@@ -10,7 +10,7 @@ import type { ModelRouterData } from '../types/model-router-data'
 import { supportedModels } from '../data'
 
 /** Individual AI model information from OpenRouter */
-interface Daum {
+interface OpenRouterModel {
   /** Array of supported API parameters for this model */
   supported_parameters: string[]
 
@@ -126,7 +126,7 @@ interface TopProvider {
 /** Response from OpenRouter API containing list of available models */
 interface Root {
   /** Array of available AI models */
-  data: Daum[]
+  data: OpenRouterModel[]
 }
 
 /**
@@ -156,12 +156,12 @@ let supportedModelIds = Object.entries(supportedModels).flatMap(
  * This function uses a combination of exact matches, partial matches, and
  * semantic similarity to determine how well a model matches a target ID.
  *
- * @param {Daum} model - The model to evaluate.
+ * @param {OpenRouterModel} model - The model to evaluate.
  * @param {string} targetId - The target model ID to compare against.
  * @returns {number} A score representing the relevance of the model to the
  *   target ID.
  */
-function calculateRelevance(model: Daum, targetId: string): number {
+function calculateRelevance(model: OpenRouterModel, targetId: string): number {
   let score = 0
 
   function normalizeString(string_: string): string {
@@ -290,7 +290,7 @@ function selectBestMatch(
 
   let scoredMatches = matches
     .map(match => {
-      let temporaryModel: Daum = {
+      let temporaryModel = {
         // eslint-disable-next-line camelcase
         canonical_slug: match.canonicalSlug,
         // eslint-disable-next-line camelcase
@@ -298,7 +298,7 @@ function selectBestMatch(
         pricing: match.pricing,
         name: match.name,
         id: match.id,
-      } as Daum
+      } as OpenRouterModel
 
       let relevance = calculateRelevance(temporaryModel, targetId)
 

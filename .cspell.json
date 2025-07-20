@@ -1,0 +1,18 @@
+{
+  "dictionaries": ["css", "html", "node", "npm", "typescript"],
+  "useGitignore": true,
+  "language": "en",
+  "ignorePaths": [".github", "changelog.md", "license", "pnpm-lock.yaml"],
+  "words": [
+    "azat",
+    "bgkmt",
+    "changelogen",
+    "changelogithub",
+    "clinerules",
+    "crosspost",
+    "cursorrules",
+    "humanwhocodes",
+    "openrouter",
+    "tiktoken"
+  ]
+}

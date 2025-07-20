@@ -199,10 +199,10 @@ Create a new section in `data/index.ts`:
 ```typescript
 export let supportedModels = {
   // ... existing providers
-  newprovider: {
+  newProvider: {
     'model-name': {
       name: 'New Provider Model',
-      provider: 'newprovider',
+      provider: 'newProvider',
     },
   },
 }
@@ -238,7 +238,7 @@ export let countTokens = (text: string, model: string): number => {
   if (modelConfig) {
     // ... existing providers
 
-    if (modelConfig.provider === 'newprovider') {
+    if (modelConfig.provider === 'newProvider') {
       return countNewProviderTokens(text, model)
     }
   }

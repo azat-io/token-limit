@@ -79,9 +79,6 @@ export interface ModelRouterData {
    * - Data source tracking
    * - Service-specific processing logic
    * - Debugging and monitoring
-   *
-   * @example
-   *   ;'openrouter' | 'huggingface' | 'replicate'
    */
   source: string
 }

@@ -54,6 +54,7 @@
     "test:format": "prettier --check \"**/*.{js,ts,json,md,yml}\"",
     "test:js": "eslint .",
     "test:packages": "pnpm dedupe --check",
+    "test:spelling": "cspell \"**/*\"",
     "test:types": "tsc --noEmit --pretty",
     "test:unit": "vitest --run --coverage",
     "test:usage": "knip"
@@ -78,6 +79,7 @@
     "changelogen": "^0.6.2",
     "changelogithub": "^13.16.0",
     "clean-publish": "^5.2.2",
+    "cspell": "^9.2.0",
     "dedent": "^1.6.0",
     "eslint": "^9.31.0",
     "jiti": "^2.4.2",
