@@ -162,6 +162,7 @@ Token Limit supports multiple configuration formats to suit your project needs. 
 **Anthropic Models**
 
 - `claude-opus-4`
+- `claude-opus-4.1`
 - `claude-sonnet-4`
 - `claude-3.7-sonnet`
 - `claude-3.5-sonnet`
