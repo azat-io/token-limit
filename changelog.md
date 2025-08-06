@@ -1,5 +1,26 @@
 # Changelog
 
+## v1.2.0
+
+[compare changes](https://github.com/azat-io/token-limit/compare/v1.1.0...v1.2.0)
+
+### 🚀 Features
+
+- Support claude opus 4.1 ([f3cab13](https://github.com/azat-io/token-limit/commit/f3cab13))
+
+### 🏡 Chore
+
+- Update dependencies ([2b3d694](https://github.com/azat-io/token-limit/commit/2b3d694))
+
+### 🤖 CI
+
+- Configure spell checking ([ce93496](https://github.com/azat-io/token-limit/commit/ce93496))
+- Switch from npm token to oidc auth ([ccdfbc6](https://github.com/azat-io/token-limit/commit/ccdfbc6))
+
+### ❤️ Contributors
+
+- Azat S. ([@azat-io](https://github.com/azat-io))
+
 ## v1.1.0
 
 [compare changes](https://github.com/azat-io/token-limit/compare/v1.0.0...v1.1.0)
