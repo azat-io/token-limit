@@ -38,12 +38,7 @@ interface TokenLimitOptions {
   name?: string
 }
 
-/**
- * Initializes and runs the command-line interface for the Token Limit tool.
- *
- * @returns {void} This function does not return a value but may exit the
- *   process.
- */
+/** Initializes and runs the command-line interface for the Token Limit tool. */
 export function run(): void {
   let cli = cac('token-limit')
 

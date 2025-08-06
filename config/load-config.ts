@@ -58,12 +58,9 @@ let configOptions = {
  *   // Load specific config file
  *   let { config } = await loadConfig('./my-config.ts')
  *
- * @param {string | undefined} configPath - Optional path to a specific
- *   configuration file.
- * @param {string} searchFrom - Directory to search from (defaults to
- *   process.cwd()).
- * @returns {Promise<ConfigResult>} Promise resolving to the loaded
- *   configuration with metadata.
+ * @param configPath - Optional path to a specific configuration file.
+ * @param searchFrom - Directory to search from (defaults to process.cwd()).
+ * @returns Promise resolving to the loaded configuration with metadata.
  * @throws Error if configuration is not found.
  */
 export async function loadConfig(
@@ -103,10 +100,9 @@ export async function loadConfig(
 /**
  * Processes the configuration by resolving paths relative to config directory.
  *
- * @param {TokenLimitConfig} config - The raw configuration array.
- * @param {string} configDirectory - Directory containing the configuration
- *   file.
- * @returns {TokenLimitConfig} Processed configuration with resolved paths.
+ * @param config - The raw configuration array.
+ * @param configDirectory - Directory containing the configuration file.
+ * @returns Processed configuration with resolved paths.
  */
 function processConfig(
   config: TokenLimitConfig,

@@ -15,7 +15,7 @@ import { supportedModels } from '../data'
  *
  * - OpenAI models (GPT-4, GPT-3.5): Uses tiktoken with cl100k_base encoding
  * - Anthropic models (Claude): Uses Anthropic's official tokenizer
- * - Unknown models: Falls back to OpenAI tokenizer with warning
+ * - Unknown models: Falls back to OpenAI tokenizer with warning.
  *
  * @example
  *   // Count tokens for different models
@@ -32,17 +32,17 @@ import { supportedModels } from '../data'
  *     console.warn('Content exceeds Claude context window')
  *   }
  *
- * @param {string} text - The text content to analyze for token count. Can be
- *   any string including code, markdown, or plain text.
- * @param {string} model - The AI model identifier. Supported formats:
+ * @param text - The text content to analyze for token count. Can be any string
+ *   including code, markdown, or plain text.
+ * @param model - The AI model identifier. Supported formats:
  *
  *   - OpenAI: 'gpt-4', 'gpt-4-turbo', 'gpt-3.5-turbo', etc.
  *   - Anthropic: 'claude-3.5-sonnet', 'claude-3-opus', 'claude-3-haiku', etc.
- *   - Custom: Any string (will use GPT-4 tokenizer as fallback)
+ *   - Custom: Any string (will use GPT-4 tokenizer as fallback).
  *
- * @returns {number} The number of tokens in the provided text according to the
- *   model's tokenization rules. This count represents how the model would
- *   internally process the text and is crucial for context window management.
+ * @returns The number of tokens in the provided text according to the model's
+ *   tokenization rules. This count represents how the model would internally
+ *   process the text and is crucial for context window management.
  * @see {@link https://platform.openai.com/docs/guides/text-generation/managing-tokens} OpenAI Token Guide
  * @see {@link https://docs.anthropic.com/en/docs/build-with-claude/prompt-engineering/long-context-tips} Claude Context Guide
  */
@@ -91,14 +91,12 @@ export function countTokens(text: string, model: string): number {
  *   const tokens = countOpenAITokens('Hello world!', 'gpt-4o', 'o200k_base')
  *   console.log(tokens) // e.g., 3
  *
- * @param {string} text - The text to tokenize and count
- * @param {string} model - The OpenAI model name (e.g., 'gpt-4o',
- *   'gpt-3.5-turbo')
- * @param {TiktokenEncoding} encoding - The encoding to use for tokenization
- * @returns {number} The number of tokens in the text according to the model's
- *   tokenizer. If tokenization fails, returns an approximation based on
- *   character count (text.length / 4), which is a rough estimate for English
- *   text.
+ * @param text - The text to tokenize and count.
+ * @param model - The OpenAI model name (e.g., 'gpt-4o', 'gpt-3.5-turbo').
+ * @param encoding - The encoding to use for tokenization.
+ * @returns The number of tokens in the text according to the model's tokenizer.
+ *   If tokenization fails, returns an approximation based on character count
+ *   (text.length / 4), which is a rough estimate for English text.
  */
 function countOpenAITokens(
   text: string,
@@ -133,11 +131,10 @@ function countOpenAITokens(
  * model name matches any known OpenAI or Anthropic model, it returns the
  * corresponding provider.
  *
- * @param {string} model - The AI model name to check (e.g., 'gpt-4',
+ * @param model - The AI model name to check (e.g., 'gpt-4',
  *   'claude-3.5-sonnet').
- * @returns {string | null} The provider name ('openai' or 'anthropic') if the
- *   model matches known patterns, or null if it does not match any known
- *   models.
+ * @returns The provider name ('openai' or 'anthropic') if the model matches
+ *   known patterns, or null if it does not match any known models.
  */
 function detectProviderFromSupportedModels(model: string): string | null {
   let normalizedInput = model.toLowerCase().trim()

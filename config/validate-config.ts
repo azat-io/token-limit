@@ -36,8 +36,8 @@ let knownModels = Object.values(supportedModels).flatMap(provider =>
  *     console.error('Configuration errors:', result.errors)
  *   }
  *
- * @param {TokenLimitConfig} config - The configuration object to validate.
- * @returns {ValidationResult} Validation result with errors.
+ * @param config - The configuration object to validate.
+ * @returns Validation result with errors.
  */
 export function validateConfig(config: TokenLimitConfig): ValidationResult {
   let errors: ValidationError[] = []
@@ -84,9 +84,9 @@ export function validateConfig(config: TokenLimitConfig): ValidationResult {
 /**
  * Validates the limit field format and value.
  *
- * @param {string | number} limit - The limit value to validate.
- * @param {string} fieldPath - The field path for error reporting.
- * @param {ValidationError[]} errors - Array to collect validation errors.
+ * @param limit - The limit value to validate.
+ * @param fieldPath - The field path for error reporting.
+ * @param errors - Array to collect validation errors.
  */
 function validateLimit(
   limit: string | number,
@@ -132,10 +132,9 @@ function validateLimit(
 /**
  * Validates the path field of a token check configuration.
  *
- * @param {string | string[]} path - The path value to validate (string or
- *   string array).
- * @param {string} fieldPath - The field path for error reporting.
- * @param {ValidationError[]} errors - Array to collect validation errors.
+ * @param path - The path value to validate (string or string array).
+ * @param fieldPath - The field path for error reporting.
+ * @param errors - Array to collect validation errors.
  */
 function validatePath(
   path: string[] | string,
@@ -181,9 +180,9 @@ function validatePath(
 /**
  * Validates a single token check configuration object.
  *
- * @param {TokenCheck} check - The check object to validate.
- * @param {string} basePath - The base path for error reporting.
- * @param {ValidationError[]} errors - Array to collect validation errors.
+ * @param check - The check object to validate.
+ * @param basePath - The base path for error reporting.
+ * @param errors - Array to collect validation errors.
  */
 function validateCheck(
   check: TokenCheck,
@@ -212,9 +211,9 @@ function validateCheck(
 /**
  * Validates the model field and errors on unknown models.
  *
- * @param {string} model - The model name to validate.
- * @param {string} fieldPath - The field path for error reporting.
- * @param {ValidationError[]} errors - Array to collect validation errors.
+ * @param model - The model name to validate.
+ * @param fieldPath - The field path for error reporting.
+ * @param errors - Array to collect validation errors.
  */
 function validateModel(
   model: string,

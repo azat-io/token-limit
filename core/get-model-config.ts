@@ -5,9 +5,8 @@ import { supportedModels } from '../data'
 /**
  * Get model configuration from supported models data.
  *
- * @param {string} modelName - Name of the model to get configuration for.
- * @returns {ModelConfig | undefined} Model configuration or undefined if not
- *   found.
+ * @param modelName - Name of the model to get configuration for.
+ * @returns Model configuration or undefined if not found.
  */
 export function getModelConfig(modelName: string): ModelConfig | undefined {
   for (let provider of Object.values(supportedModels)) {

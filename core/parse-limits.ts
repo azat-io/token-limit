@@ -6,26 +6,21 @@ import { openRouterModels } from '../data/open-router-models'
 
 /** Parsed limit configuration with normalized values. */
 interface ParsedLimit {
-  /** Token limit (if specified) */
+  /** Token limit (if specified). */
   tokens?: number
 
-  /** Cost limit in USD (if specified) */
+  /** Cost limit in USD (if specified). */
   cost?: number
 }
 
 /**
  * Parse limit configuration into normalized format.
  *
- * @param {(TokenLimit & CostLimit)
- *   | TokenLimit
- *   | CostLimit
- *   | string
- *   | number} limit
- *   - The limit configuration to parse. Can be a simple number/string for token
- *       limits, token limit object, cost limit object, or combined limits.
- *
- * @param {string} model - Model name to use for context window limits.
- * @returns {ParsedLimit} The parsed limit configuration with normalized values.
+ * @param limit - The limit configuration to parse. Can be a simple
+ *   number/string for token limits, token limit object, cost limit object, or
+ *   combined limits.
+ * @param model - Model name to use for context window limits.
+ * @returns The parsed limit configuration with normalized values.
  */
 export function parseLimit(
   limit: (TokenLimit & CostLimit) | TokenLimit | CostLimit | string | number,
@@ -67,9 +62,9 @@ export function parseLimit(
 /**
  * Calculate cost for given tokens and model.
  *
- * @param {number} tokens - Number of tokens to calculate cost for.
- * @param {string} model - Model name to get pricing information from.
- * @returns {number} The calculated cost in USD.
+ * @param tokens - Number of tokens to calculate cost for.
+ * @param model - Model name to get pricing information from.
+ * @returns The calculated cost in USD.
  */
 export function calculateCost(tokens: number, model: string): number {
   let currentModel = openRouterModels[
@@ -89,8 +84,8 @@ export function calculateCost(tokens: number, model: string): number {
 /**
  * Format tokens as a readable string.
  *
- * @param {number} tokens - Number of tokens to format
- * @returns {string} Formatted tokens string
+ * @param tokens - Number of tokens to format.
+ * @returns Formatted tokens string.
  */
 export function formatTokens(tokens: number): string {
   if (tokens >= 1_000_000) {
@@ -105,8 +100,8 @@ export function formatTokens(tokens: number): string {
 /**
  * Format cost as a readable string.
  *
- * @param {number} cost - Cost value in USD
- * @returns {string} Formatted cost string
+ * @param cost - Cost value in USD.
+ * @returns Formatted cost string.
  */
 export function formatCost(cost: number): string {
   if (cost < 0.01) {
@@ -119,10 +114,10 @@ export function formatCost(cost: number): string {
 /**
  * Parse token limit from various formats.
  *
- * @param {string | number} limit - The token limit to parse. Can be a number
- *   (tokens), string with suffixes (100k, 1.5m), or model name.
- * @param {string} model - Model name to use for context window limits.
- * @returns {number} The parsed token limit.
+ * @param limit - The token limit to parse. Can be a number (tokens), string
+ *   with suffixes (100k, 1.5m), or model name.
+ * @param model - Model name to use for context window limits.
+ * @returns The parsed token limit.
  */
 function parseTokenLimit(limit: string | number, model: string): number {
   if (typeof limit === 'number') {
@@ -176,10 +171,9 @@ function parseTokenLimit(limit: string | number, model: string): number {
 /**
  * Parse cost limit from various formats to USD.
  *
- * @param {string | number} cost - The cost limit to parse. Can be a number
- *   (dollars), string with currency symbols ($0.05), cents (5c, 10 cents), or
- *   text format (1 dollar).
- * @returns {number} The parsed cost limit in USD.
+ * @param cost - The cost limit to parse. Can be a number (dollars), string with
+ *   currency symbols ($0.05), cents (5c, 10 cents), or text format (1 dollar).
+ * @returns The parsed cost limit in USD.
  */
 function parseCostLimit(cost: string | number): number {
   if (typeof cost === 'number') {

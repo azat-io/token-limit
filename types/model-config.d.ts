@@ -11,7 +11,7 @@
  * - Validate content against context window limits
  * - Calculate API costs
  * - Filter models by capabilities
- * - Provide warnings about deprecated models
+ * - Provide warnings about deprecated models.
  */
 export interface ModelConfig {
   /**
@@ -24,7 +24,7 @@ export interface ModelConfig {
    * - `'function-calling'` - Supports structured function/tool calls
    * - `'reasoning'` - Enhanced logical reasoning (o-series models)
    * - `'multimodal'` - Supports multiple input types
-   * - `'streaming'` - Supports real-time response streaming
+   * - `'streaming'` - Supports real-time response streaming.
    */
   capabilities?: string[]
 
@@ -36,7 +36,7 @@ export interface ModelConfig {
    * - Model may stop working in the future
    * - Should show warnings to users
    * - Recommend migration to newer models
-   * - May have reduced support/features
+   * - May have reduced support/features.
    *
    * @example
    *   true // GPT-3.5-turbo is being phased out
@@ -58,7 +58,7 @@ export interface ModelConfig {
    * - `'p50k_base'` - Used by older GPT-3 models
    * - `'r50k_base'` - Used by Codex models
    * - `undefined` - For non-OpenAI models (Claude, Gemini) that use their own
-   *   tokenizers
+   *   tokenizers.
    *
    * @example
    *   ;'cl100k_base' | 'o200k_base' | 'p50k_base'
@@ -75,7 +75,7 @@ export interface ModelConfig {
    * - Routing to correct tokenization logic
    * - Grouping models by provider in UI
    * - Provider-specific API integrations
-   * - Billing and cost tracking
+   * - Billing and cost tracking.
    *
    * @example
    *   ;'openai' | 'anthropic' | 'google' | 'meta' | 'mistral'

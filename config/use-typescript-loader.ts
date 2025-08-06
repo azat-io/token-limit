@@ -3,9 +3,8 @@ import type { TokenLimitConfig } from '../types/token-limit-config.js'
 /**
  * Loader for TypeScript files using jiti.
  *
- * @param {string} filePath - Path to the TypeScript file to load.
- * @returns {Promise<TokenLimitConfig | undefined>} The loaded configuration or
- *   undefined if no default export.
+ * @param filePath - Path to the TypeScript file to load.
+ * @returns The loaded configuration or undefined if no default export.
  */
 export async function useTypescriptLoader(
   filePath: string,

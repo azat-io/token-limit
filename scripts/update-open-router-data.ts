@@ -9,130 +9,130 @@ import type { ModelRouterData } from '../types/model-router-data'
 
 import { supportedModels } from '../data'
 
-/** Individual AI model information from OpenRouter */
+/** Individual AI model information from OpenRouter. */
 interface OpenRouterModel {
-  /** Array of supported API parameters for this model */
+  /** Array of supported API parameters for this model. */
   supported_parameters: string[]
 
-  /** Request limits per API call, if any. Can be null */
+  /** Request limits per API call, if any. Can be null. */
   per_request_limits: unknown
 
-  /** Technical architecture details of the model */
+  /** Technical architecture details of the model. */
   architecture: Architecture
 
-  /** Information about the top/recommended provider for this model */
+  /** Information about the top/recommended provider for this model. */
   top_provider: TopProvider
 
-  /** Hugging Face model identifier, if available. Can be null or empty string */
+  /** Hugging Face model identifier, if available. Can be null or empty string. */
   hugging_face_id?: string
 
-  /** Canonical slug identifier used for API calls */
+  /** Canonical slug identifier used for API calls. */
   canonical_slug: string
 
-  /** Maximum context length in tokens that the model supports */
+  /** Maximum context length in tokens that the model supports. */
   context_length: number
 
-  /** Detailed description of the model's capabilities and features */
+  /** Detailed description of the model's capabilities and features. */
   description: string
 
-  /** Pricing information for different types of usage */
+  /** Pricing information for different types of usage. */
   pricing: Pricing
 
-  /** Unix timestamp when the model was created/added */
+  /** Unix timestamp when the model was created/added. */
   created: number
 
-  /** Human-readable display name of the model */
+  /** Human-readable display name of the model. */
   name: string
 
-  /** Unique identifier for the model (e.g., "anthropic/claude-opus-4") */
+  /** Unique identifier for the model (e.g., "anthropic/claude-opus-4"). */
   id: string
 }
 
-/** Pricing structure for different types of model usage */
+/** Pricing structure for different types of model usage. */
 interface Pricing {
-  /** Cost for internal reasoning tokens in USD, if supported */
+  /** Cost for internal reasoning tokens in USD, if supported. */
   internal_reasoning?: string
 
-  /** Cost for writing to input cache in USD, if supported */
+  /** Cost for writing to input cache in USD, if supported. */
   input_cache_write?: string
 
-  /** Cost for reading from input cache in USD, if supported */
+  /** Cost for reading from input cache in USD, if supported. */
   input_cache_read?: string
 
-  /** Cost for web search functionality in USD, if supported */
+  /** Cost for web search functionality in USD, if supported. */
   web_search?: string
 
-  /** Cost per output token in USD */
+  /** Cost per output token in USD. */
   completion: string
 
-  /** Cost per API request in USD (usually "0") */
+  /** Cost per API request in USD (usually "0"). */
   request?: string
 
-  /** Cost per input token in USD */
+  /** Cost per input token in USD. */
   prompt: string
 
-  /** Cost per image input in USD, if supported */
+  /** Cost per image input in USD, if supported. */
   image?: string
 }
 
-/** Model architecture and capability information */
+/** Model architecture and capability information. */
 interface Architecture {
-  /** Instruction tuning type, if applicable. Can be null */
+  /** Instruction tuning type, if applicable. Can be null. */
   instruct_type?: string | null
 
-  /** Array of supported output types (e.g., ["text"]) */
+  /** Array of supported output types (e.g., ["text"]). */
   output_modalities: string[]
 
-  /** Array of supported input types (e.g., ["text", "image"]) */
+  /** Array of supported input types (e.g., ["text", "image"]). */
   input_modalities: string[]
 
-  /** Tokenizer type used by the model (e.g., "Claude", "GPT") */
+  /** Tokenizer type used by the model (e.g., "Claude", "GPT"). */
   tokenizer: string
 
-  /** Overall modality format (e.g., "text+image->text", "text->text") */
+  /** Overall modality format (e.g., "text+image->text", "text->text"). */
   modality: string
 }
 
-/** OpenRouter model match for our supported models */
+/** OpenRouter model match for our supported models. */
 interface OpenRouterMatch {
-  /** Canonical slug identifier used for API calls */
+  /** Canonical slug identifier used for API calls. */
   canonicalSlug: string
 
-  /** Maximum context length in tokens that the model supports */
+  /** Maximum context length in tokens that the model supports. */
   contextLength: number
 
-  /** Pricing information for different types of usage */
+  /** Pricing information for different types of usage. */
   pricing: Pricing
 
-  /** Human-readable display name of the model */
+  /** Human-readable display name of the model. */
   name: string
 
-  /** Unique identifier for the model (e.g., "anthropic/claude-opus-4") */
+  /** Unique identifier for the model (e.g., "anthropic/claude-opus-4"). */
   id: string
 }
 
-/** Information about the recommended provider for this model */
+/** Information about the recommended provider for this model. */
 interface TopProvider {
-  /** Maximum completion tokens allowed in a single response */
+  /** Maximum completion tokens allowed in a single response. */
   max_completion_tokens?: number
 
-  /** Maximum context length provided by this provider */
+  /** Maximum context length provided by this provider. */
   context_length?: number
 
-  /** Whether the provider applies content moderation */
+  /** Whether the provider applies content moderation. */
   is_moderated: boolean
 }
 
-/** Response from OpenRouter API containing list of available models */
+/** Response from OpenRouter API containing list of available models. */
 interface Root {
-  /** Array of available AI models */
+  /** Array of available AI models. */
   data: OpenRouterModel[]
 }
 
 /**
  * Fetches the list of AI models from OpenRouter API.
  *
- * @returns {Promise<Root>} A promise that resolves to the list of AI models.
+ * @returns A promise that resolves to the list of AI models.
  */
 async function fetchOpenRouterModels(): Promise<Root> {
   let response = await fetch('https://openrouter.ai/api/v1/models')
@@ -156,10 +156,9 @@ let supportedModelIds = Object.entries(supportedModels).flatMap(
  * This function uses a combination of exact matches, partial matches, and
  * semantic similarity to determine how well a model matches a target ID.
  *
- * @param {OpenRouterModel} model - The model to evaluate.
- * @param {string} targetId - The target model ID to compare against.
- * @returns {number} A score representing the relevance of the model to the
- *   target ID.
+ * @param model - The model to evaluate.
+ * @param targetId - The target model ID to compare against.
+ * @returns A score representing the relevance of the model to the target ID.
  */
 function calculateRelevance(model: OpenRouterModel, targetId: string): number {
   let score = 0
@@ -231,8 +230,8 @@ function calculateRelevance(model: OpenRouterModel, targetId: string): number {
  * models based on a relevance score, and selects the best match for each
  * supported model.
  *
- * @returns {Map<string, OpenRouterMatch>} A map where keys are supported model
- *   IDs and values are the best matching OpenRouter models.
+ * @returns A map where keys are supported model IDs and values are the best
+ *   matching OpenRouter models.
  */
 function createSmartMapping(): Map<string, OpenRouterMatch> {
   let openRouterModelMap = new Map<string, OpenRouterMatch>()
@@ -275,9 +274,9 @@ function createSmartMapping(): Map<string, OpenRouterMatch> {
  * relevance and cost. It prefers matches with higher relevance and lower cost,
  * ensuring that the most suitable model is selected for the target ID.
  *
- * @param {OpenRouterMatch[]} matches - The list of matches to evaluate.
- * @param {string} targetId - The target model ID to match against.
- * @returns {OpenRouterMatch} The best match from the list.
+ * @param matches - The list of matches to evaluate.
+ * @param targetId - The target model ID to match against.
+ * @returns The best match from the list.
  * @throws {Error} If the matches array is empty.
  */
 function selectBestMatch(
@@ -318,8 +317,8 @@ function selectBestMatch(
 /**
  * Checks if a model ID is considered stable.
  *
- * @param {string} modelId - The model ID to check.
- * @returns {boolean} True if the model ID is stable, false otherwise.
+ * @param modelId - The model ID to check.
+ * @returns True if the model ID is stable, false otherwise.
  */
 function isStableModel(modelId: string): boolean {
   let unstablePatterns = [
@@ -340,8 +339,8 @@ function isStableModel(modelId: string): boolean {
 /**
  * Rounds a number to 6 decimal places.
  *
- * @param {number} value - The number to round.
- * @returns {number} The rounded number.
+ * @param value - The number to round.
+ * @returns The rounded number.
  */
 function roundPrice(value: number): number {
   return Number(value.toFixed(6))

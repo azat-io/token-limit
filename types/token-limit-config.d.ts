@@ -11,7 +11,7 @@ export interface TokenCheck {
    * - Simple number/string for token limits: 1000, "5k", "claude-3.5-sonnet"
    * - Token limit object: { tokens: 1000 }
    * - Cost limit object: { cost: 0.01 } or { cost: "$0.05" }
-   * - Combined limits: { tokens: 1000, cost: 0.01 }
+   * - Combined limits: { tokens: 1000, cost: 0.01 }.
    */
   limit?: (TokenLimit & CostLimit) | TokenLimit | CostLimit | string | number
 
@@ -57,7 +57,7 @@ export interface CostLimit {
    * - Numbers: 0.01 (dollars)
    * - With currency symbol: "$0.05"
    * - Cents: "5c", "10 cents", "1 cent"
-   * - Text format: "5 cents", "1 dollar"
+   * - Text format: "5 cents", "1 dollar".
    */
   cost: string | number
 }
@@ -66,7 +66,7 @@ export interface CostLimit {
 export interface TokenLimit {
   /**
    * Token limit. Format: "1000", "5k", "10K" or with context window names like
-   * "claude-3.5-sonnet" (200k)
+   * "claude-3.5-sonnet" (200k).
    */
   tokens: string | number
 }

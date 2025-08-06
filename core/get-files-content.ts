@@ -18,20 +18,18 @@ interface FileContent {
  * file contents from various sources using glob patterns. It handles multiple
  * patterns, deduplicates files, and gracefully handles read errors.
  *
- * @param {string | string[]} patterns - Glob pattern(s) to match files. Can be
- *   a single pattern string or an array of patterns. Supports standard glob
- *   syntax including:
+ * @param patterns - Glob pattern(s) to match files. Can be a single pattern
+ *   string or an array of patterns. Supports standard glob syntax including:
  *
  *   - `**` for recursive directory matching
  *   - `*` for single-level wildcards
  *   - `!` prefix for exclusion patterns
- *   - Brace expansion like `{js,ts}`
+ *   - Brace expansion like `{js,ts}`.
  *
- * @returns {Promise<FileContent[]>} Promise resolving to an array of
- *   FileContent objects containing the file path and content for each
- *   successfully read file. Files that cannot be read (due to permissions,
- *   missing files, etc.) are logged as errors but do not cause the function to
- *   fail.
+ * @returns Promise resolving to an array of FileContent objects containing the
+ *   file path and content for each successfully read file. Files that cannot be
+ *   read (due to permissions, missing files, etc.) are logged as errors but do
+ *   not cause the function to fail.
  * @throws Will not throw for individual file read errors, but may throw for
  *   glob pattern errors or other system-level issues.
  */

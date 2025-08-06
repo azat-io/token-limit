@@ -35,13 +35,12 @@ type TableRow = [string, string, string?]
  *   // Create silent human reporter (only shows failures)
  *   let silentReporter = createReporter(process, false, true)
  *
- * @param {unknown} process - Node.js process object for stdout/stderr access.
- * @param {boolean} isJSON - Whether to create a JSON reporter (true) or human
- *   reporter (false).
- * @param {boolean} isSilentMode - Whether to operate in silent mode (only
- *   applies to human reporter).
- * @returns {Reporter} Reporter instance configured for the specified output
- *   format.
+ * @param process - Node.js process object for stdout/stderr access.
+ * @param isJSON - Whether to create a JSON reporter (true) or human reporter
+ *   (false).
+ * @param isSilentMode - Whether to operate in silent mode (only applies to
+ *   human reporter).
+ * @returns Reporter instance configured for the specified output format.
  */
 export function createReporter(
   process: NodeJS.Process,
@@ -67,11 +66,9 @@ export function createReporter(
  *   let silentReporter = createHumanReporter(process, true)
  *   silentReporter.results(config) // Only shows failures, clears if nothing to show
  *
- * @param {unknown} process - Node.js process object for stdout/stderr access.
- * @param {boolean} isSilentMode - Whether to operate in silent mode (only show
- *   failures).
- * @returns {Reporter} Reporter instance that formats output for human
- *   consumption.
+ * @param process - Node.js process object for stdout/stderr access.
+ * @param isSilentMode - Whether to operate in silent mode (only show failures).
+ * @returns Reporter instance that formats output for human consumption.
  */
 function createHumanReporter(
   process: NodeJS.Process,
@@ -163,8 +160,8 @@ function createHumanReporter(
  *   let jsonReporter = createJsonReporter(process)
  *   jsonReporter.results(config) // Outputs formatted JSON to stdout
  *
- * @param {unknown} process - Node.js process object for stdout/stderr access.
- * @returns {Reporter} Reporter instance that formats output as JSON.
+ * @param process - Node.js process object for stdout/stderr access.
+ * @returns Reporter instance that formats output as JSON.
  */
 function createJsonReporter(process: NodeJS.Process): Reporter {
   function print(data: unknown): void {
@@ -242,9 +239,8 @@ function createJsonReporter(process: NodeJS.Process): Reporter {
  *   })
  *   // Returns: [green('Token count is 200 tokens under limit')]
  *
- * @param {TokenCheckResult} check - The token check result to format messages
- *   for.
- * @returns {string[]} Array of formatted status message strings.
+ * @param check - The token check result to format messages for.
+ * @returns Array of formatted status message strings.
  */
 function formatStatusMessage(check: TokenCheckResult): string[] {
   let messages: string[] = []
@@ -298,8 +294,8 @@ function formatStatusMessage(check: TokenCheckResult): string[] {
  *   })
  *   // Returns: [['Model', 'GPT-4'], ['Token limit', '1.0K'], ['File', 'file.ts']]
  *
- * @param {TokenCheckResult} check - The token check result to build rows from.
- * @returns {TableRow[]} Array of table rows with formatted information.
+ * @param check - The token check result to build rows from.
+ * @returns Array of table rows with formatted information.
  */
 function buildCheckRows(check: TokenCheckResult): TableRow[] {
   let rows: TableRow[] = []
@@ -348,9 +344,9 @@ function buildCheckRows(check: TokenCheckResult): TableRow[] {
  *   )
  *   // Returns: ['Model:     GPT-4', 'Token limit: 1.0K'] (with colors)
  *
- * @param {TableRow[]} rows - Array of table rows to format.
- * @param {TokenCheckResult} check - Token check result for styling context.
- * @returns {string[]} Array of formatted table line strings.
+ * @param rows - Array of table rows to format.
+ * @param check - Token check result for styling context.
+ * @returns Array of formatted table line strings.
  */
 function formatTable(rows: TableRow[], check: TokenCheckResult): string[] {
   let max0 = Math.max(...rows.map(row => row[0].length))
@@ -384,9 +380,8 @@ function formatTable(rows: TableRow[], check: TokenCheckResult): string[] {
  *   formatModel('claude-3.5-sonnet') // Returns: 'Claude 3.5 Sonnet'
  *   formatModel('unknown-model') // Returns: 'unknown-model'
  *
- * @param {string} model - The model identifier to format.
- * @returns {string} Human-readable model name or original identifier if not
- *   found.
+ * @param model - The model identifier to format.
+ * @returns Human-readable model name or original identifier if not found.
  */
 function formatModel(model: string): string {
   for (let provider of Object.values(supportedModels)) {
@@ -416,10 +411,9 @@ function formatModel(model: string): string {
  *   getFixText('Try to reduce usage', { configPath: '.token-limit.js' })
  *   // Returns: 'Try to reduce usage at .token-limit.js'
  *
- * @param {string} prefix - The base help message.
- * @param {ReporterConfig} config - Reporter configuration containing the config
- *   path.
- * @returns {string} Formatted help text with file path information.
+ * @param prefix - The base help message.
+ * @param config - Reporter configuration containing the config path.
+ * @returns Formatted help text with file path information.
  */
 function getFixText(prefix: string, config: ReporterConfig): string {
   let result = prefix
@@ -443,11 +437,10 @@ function getFixText(prefix: string, config: ReporterConfig): string {
  *   shouldShowCheck(failedCheck, { hidePassed: true }, false) // Returns: true
  *   shouldShowCheck(passedCheck, {}, true) // Returns: false (silent mode)
  *
- * @param {TokenCheckResult} check - The token check result to evaluate.
- * @param {ReporterConfig} config - Reporter configuration with display
- *   preferences.
- * @param {boolean} isSilentMode - Whether the reporter is in silent mode.
- * @returns {boolean} True if the check should be displayed, false otherwise.
+ * @param check - The token check result to evaluate.
+ * @param config - Reporter configuration with display preferences.
+ * @param isSilentMode - Whether the reporter is in silent mode.
+ * @returns True if the check should be displayed, false otherwise.
  */
 function shouldShowCheck(
   check: TokenCheckResult,
@@ -465,9 +458,8 @@ function shouldShowCheck(
  * prefix if present. Useful for making file paths more readable in console
  * output.
  *
- * @param {string} filePath - The file path to format.
- * @returns {string} Formatted file path without the current working directory
- *   prefix.
+ * @param filePath - The file path to format.
+ * @returns Formatted file path without the current working directory prefix.
  */
 function formatFilePath(filePath: string): string {
   let cwd = process.cwd()

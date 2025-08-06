@@ -13,10 +13,10 @@ import type { SupportedModelNames } from './supported-model-names'
  * - Pricing may be per-token instead of per-1k-tokens
  * - Field names match external API responses
  * - Less normalized/standardized data structure
- * - May include provider-specific metadata
+ * - May include provider-specific metadata.
  */
 export interface ModelRouterData {
-  /** Our internal model identifier that maps to this external model */
+  /** Our internal model identifier that maps to this external model. */
   name: SupportedModelNames
 
   /**
@@ -39,7 +39,7 @@ export interface ModelRouterData {
    *
    * - Different measurement methods
    * - Provider-specific limitations
-   * - API version differences
+   * - API version differences.
    *
    * @example
    *   200000 // 200k tokens as reported by OpenRouter
@@ -64,7 +64,7 @@ export interface ModelRouterData {
    *
    * - Cache invalidation
    * - Data freshness validation
-   * - Update scheduling
+   * - Update scheduling.
    *
    * @example
    *   '2024-07-19T10:30:00Z'
@@ -78,7 +78,7 @@ export interface ModelRouterData {
    *
    * - Data source tracking
    * - Service-specific processing logic
-   * - Debugging and monitoring
+   * - Debugging and monitoring.
    */
   source: string
 }

@@ -9,11 +9,9 @@ import { countTokens } from './count-tokens'
 /**
  * Runs token limit checks for the given configuration.
  *
- * @param {TokenLimitConfig} config - Array of token checks to run
- * @param {string} [configPath] - Optional path to config file for error
- *   reporting
- * @returns {Promise<ReporterConfig>} Promise resolving to reporter
- *   configuration with results
+ * @param config - Array of token checks to run.
+ * @param [configPath] - Optional path to config file for error reporting.
+ * @returns Promise resolving to reporter configuration with results.
  */
 export async function runChecks(
   config: TokenLimitConfig,

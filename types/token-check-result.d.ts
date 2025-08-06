@@ -8,7 +8,7 @@ export interface TokenCheckResult {
    *
    * - `true`: Cost is within the limit
    * - `false`: Cost exceeds the limit
-   * - `undefined`: No cost limit was set
+   * - `undefined`: No cost limit was set.
    */
   costPassed?: boolean
 
@@ -35,7 +35,7 @@ export interface TokenCheckResult {
    *
    * - `true`: Token count is within the limit
    * - `false`: Token count exceeds the limit
-   * - `undefined`: No limit was set (unlimited check)
+   * - `undefined`: No limit was set (unlimited check).
    */
   passed?: boolean
 
