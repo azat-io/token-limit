@@ -147,6 +147,7 @@ Token Limit supports multiple configuration formats to suit your project needs. 
 
 **OpenAI Models**
 
+- `gpt-5`
 - `gpt-4.1`
 - `gpt-4.1-mini`
 - `gpt-4.1-nano`

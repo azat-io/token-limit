@@ -53,6 +53,11 @@ export let supportedModels = {
       provider: 'openai',
       name: 'GPT-4',
     },
+    'gpt-5': {
+      encoding: 'o200k_base',
+      provider: 'openai',
+      name: 'GPT-5',
+    },
     o1: {
       encoding: 'o200k_base',
       provider: 'openai',
