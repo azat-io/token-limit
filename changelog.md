@@ -1,5 +1,22 @@
 # Changelog
 
+## v1.4.0
+
+[compare changes](https://github.com/azat-io/token-limit/compare/v1.3.0...v1.4.0)
+
+### 🚀 Features
+
+- Support claude sonnet 4.5 ([cb4875f](https://github.com/azat-io/token-limit/commit/cb4875f))
+
+### 🏡 Chore
+
+- Update github actions ([4544ce7](https://github.com/azat-io/token-limit/commit/4544ce7))
+- Update dependencies ([7795027](https://github.com/azat-io/token-limit/commit/7795027))
+
+### ❤️ Contributors
+
+- Azat S. ([@azat-io](https://github.com/azat-io))
+
 ## v1.3.0
 
 [compare changes](https://github.com/azat-io/token-limit/compare/v1.2.0...v1.3.0)
