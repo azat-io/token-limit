@@ -123,7 +123,12 @@ export function run(): void {
           results = await runChecks(config, configPath)
         } catch (checkError) {
           throw new Error(
-            `Failed to run token limit checks: ${checkError instanceof Error ? checkError.message : String(checkError)}`,
+            `Failed to run token limit checks: ${
+              checkError instanceof Error
+                ? checkError.message
+                : String(checkError)
+            }`,
+            { cause: checkError },
           )
         }
 

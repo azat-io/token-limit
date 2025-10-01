@@ -243,7 +243,7 @@ function createSmartMapping(): Map<string, OpenRouterMatch> {
         model,
       }))
       .filter(({ relevance }) => relevance > 100)
-      .sort((a, b) => b.relevance - a.relevance)
+      .toSorted((a, b) => b.relevance - a.relevance)
       .slice(0, 10)
 
     if (candidates.length === 0) {
@@ -309,7 +309,7 @@ function selectBestMatch(
 
       return { finalScore, relevance, totalCost, match }
     })
-    .sort((a, b) => b.finalScore - a.finalScore)
+    .toSorted((a, b) => b.finalScore - a.finalScore)
 
   return scoredMatches[0]!.match
 }
