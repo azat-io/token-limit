@@ -74,6 +74,10 @@ export let supportedModels = {
       name: 'Claude 3.5 Sonnet',
       provider: 'anthropic',
     },
+    'claude-sonnet-4.5': {
+      name: 'Claude Sonnet 4.5',
+      provider: 'anthropic',
+    },
     'claude-3.5-haiku': {
       name: 'Claude 3.5 Haiku',
       provider: 'anthropic',
