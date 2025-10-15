@@ -1,5 +1,25 @@
 # Changelog
 
+## v1.5.0
+
+[compare changes](https://github.com/azat-io/token-limit/compare/v1.4.0...v1.5.0)
+
+### 🚀 Features
+
+- Support claude haiku 4.5 ([946729d](https://github.com/azat-io/token-limit/commit/946729d))
+
+### 🏡 Chore
+
+- Update dependencies ([4d92243](https://github.com/azat-io/token-limit/commit/4d92243))
+
+### 🤖 CI
+
+- Add harden runner ([adf789d](https://github.com/azat-io/token-limit/commit/adf789d))
+
+### ❤️ Contributors
+
+- Azat S. ([@azat-io](https://github.com/azat-io))
+
 ## v1.4.0
 
 [compare changes](https://github.com/azat-io/token-limit/compare/v1.3.0...v1.4.0)
