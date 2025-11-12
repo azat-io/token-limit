@@ -298,6 +298,27 @@ describe('loadConfig', () => {
     expect(result.config[0]?.name).toBe('Custom Name')
   })
 
+  it('should skip processing when path is not a string or array', async () => {
+    expect.assertions(1)
+
+    // Intentionally omit path to ensure loadConfig handles malformed entries.
+    let mockConfig = [
+      {
+        name: 'Broken entry',
+        limit: '10k',
+      },
+    ] as unknown as TokenLimitConfig
+
+    mockExplorer.search.mockResolvedValue({
+      filepath: '/test/project/.token-limit.json',
+      config: mockConfig,
+    })
+
+    let result = await loadConfig()
+
+    expect(result.config[0]?.path).toBeUndefined()
+  })
+
   it('should preserve all TokenCheck fields', async () => {
     expect.assertions(3)
 

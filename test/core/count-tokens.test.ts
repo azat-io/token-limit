@@ -47,18 +47,14 @@ vi.mock('../../data', () => ({
 }))
 
 describe('countTokens', () => {
-  let consoleSpy: ReturnType<typeof vi.spyOn>
-  let errorSpy: ReturnType<typeof vi.spyOn>
-
   beforeEach(() => {
     vi.clearAllMocks()
-    consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
-    errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+    vi.spyOn(console, 'warn').mockImplementation(() => {})
+    vi.spyOn(console, 'error').mockImplementation(() => {})
   })
 
   afterEach(() => {
-    consoleSpy.mockRestore()
-    errorSpy.mockRestore()
+    vi.restoreAllMocks()
   })
 
   describe('with model configuration', () => {
@@ -109,6 +105,27 @@ describe('countTokens', () => {
 
       expect(getModelConfig).toHaveBeenCalledWith('gpt-4o')
       expect(getTokenizerEncoding).toHaveBeenCalledWith('o200k_base')
+    })
+
+    it('should fall back when model config provider is unknown', () => {
+      expect.assertions(3)
+
+      let mockModelConfig = {
+        name: 'Custom Model',
+        provider: 'custom',
+      }
+      vi.mocked(getModelConfig).mockReturnValue(
+        mockModelConfig as ReturnType<typeof getModelConfig>,
+      )
+
+      let result = countTokens('Hello world', 'custom-model')
+
+      expect(getModelConfig).toHaveBeenCalledWith('custom-model')
+      expect(console.warn).toHaveBeenCalledWith(
+        'Unknown model "custom-model", using GPT-4 tokenizer as fallback. ' +
+          'This may not accurately represent the actual token count for your model.',
+      )
+      expect(result).toBe(3)
     })
   })
 

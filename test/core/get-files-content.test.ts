@@ -13,15 +13,12 @@ vi.mock('tinyglobby', () => ({
 let mockedGlob = vi.mocked(glob)
 
 describe('getFilesContent', () => {
-  let consoleSpy: ReturnType<typeof vi.spyOn>
-
   beforeEach(() => {
-    consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
+    vi.spyOn(console, 'error').mockImplementation(() => {})
     mockedGlob.mockReset()
   })
 
   afterEach(() => {
-    consoleSpy.mockRestore()
     vi.restoreAllMocks()
   })
 
@@ -96,7 +93,7 @@ describe('getFilesContent', () => {
 
     let result = await getFilesContent('test/fixtures/existing-file.md')
 
-    expect(consoleSpy).toHaveBeenCalledWith(
+    expect(console.error).toHaveBeenCalledWith(
       expect.stringContaining('Error reading file'),
       expect.any(Error),
     )
@@ -134,11 +131,32 @@ describe('getFilesContent', () => {
 
     let result = await getFilesContent('test/fixtures/*.md')
 
-    expect(consoleSpy).toHaveBeenCalledWith(
+    expect(console.error).toHaveBeenCalledWith(
       expect.stringContaining('Error processing glob pattern'),
       expect.any(Error),
     )
     expect(result).toEqual([])
+  })
+
+  it('should ignore rejected glob results from Promise.allSettled', async () => {
+    expect.assertions(2)
+
+    mockedGlob.mockResolvedValue([])
+    let allSettledSpy = vi.spyOn(Promise, 'allSettled')
+    allSettledSpy
+      .mockResolvedValueOnce([
+        { reason: new Error('Glob failed'), status: 'rejected' },
+      ] as PromiseSettledResult<string[]>[])
+      .mockResolvedValueOnce([] as PromiseSettledResult<null>[])
+
+    try {
+      let result = await getFilesContent('test/fixtures/*.md')
+
+      expect(result).toEqual([])
+      expect(allSettledSpy).toHaveBeenCalledTimes(2)
+    } finally {
+      allSettledSpy.mockRestore()
+    }
   })
 
   it('should handle non-file paths (directories)', async () => {
@@ -152,7 +170,7 @@ describe('getFilesContent', () => {
 
     let result = await getFilesContent('test/fixtures/existing-file.md')
 
-    expect(consoleSpy).toHaveBeenCalledWith(
+    expect(console.error).toHaveBeenCalledWith(
       expect.stringContaining('Error reading file'),
       expect.any(Error),
     )

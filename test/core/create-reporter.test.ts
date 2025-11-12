@@ -197,6 +197,24 @@ describe('createReporter', () => {
       expect(output).not.toContain('"tokenLimit"')
       expect(output).not.toContain('"files"')
     })
+
+    it('should omit cost property when it is undefined', () => {
+      expect.assertions(1)
+
+      let reporter = createReporter(mockProcess, true)
+      let config = createTestConfig({
+        checks: [
+          createTestCheck({
+            cost: undefined,
+          }),
+        ],
+      })
+
+      reporter.results(config)
+
+      let parsed = JSON.parse(mockProcess.getStdout()) as TokenCheckResult[]
+      expect(parsed[0]).not.toHaveProperty('cost')
+    })
   })
 
   describe('human reporter', () => {
@@ -761,6 +779,23 @@ describe('createReporter', () => {
       let output = mockProcess.getStdout()
       expect(output).toContain('Cost:')
       expect(output).toContain('Cost limit:')
+    })
+
+    it('should skip cost row when cost is undefined', () => {
+      expect.assertions(1)
+
+      let reporter = createReporter(mockProcess, false)
+      let config = createTestConfig({
+        checks: [
+          createTestCheck({
+            cost: undefined,
+          }),
+        ],
+      })
+
+      reporter.results(config)
+
+      expect(mockProcess.getStdout()).not.toContain('Cost:')
     })
 
     it('should handle check with unlimited tokens (passed undefined)', () => {
