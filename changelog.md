@@ -1,5 +1,31 @@
 # Changelog
 
+## v1.6.0
+
+[compare changes](https://github.com/azat-io/token-limit/compare/v1.5.0...v1.6.0)
+
+### 🚀 Features
+
+- Support claude opus 4.5 ([aa2ec3d](https://github.com/azat-io/token-limit/commit/aa2ec3d))
+
+### 🏡 Chore
+
+- Move to ts cspell config ([88d9f38](https://github.com/azat-io/token-limit/commit/88d9f38))
+- Update dependencies ([10f5bb1](https://github.com/azat-io/token-limit/commit/10f5bb1))
+- Update github actions ([fe37fa3](https://github.com/azat-io/token-limit/commit/fe37fa3))
+
+### ✅ Tests
+
+- Improve test coverage ([aaf48cf](https://github.com/azat-io/token-limit/commit/aaf48cf))
+
+### 🤖 CI
+
+- Update harden runner ([e810517](https://github.com/azat-io/token-limit/commit/e810517))
+
+### ❤️ Contributors
+
+- Azat S. ([@azat-io](https://github.com/azat-io))
+
 ## v1.5.0
 
 [compare changes](https://github.com/azat-io/token-limit/compare/v1.4.0...v1.5.0)
