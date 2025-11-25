@@ -38,11 +38,6 @@ export let supportedModels = {
       provider: 'openai',
       name: 'O3 Mini',
     },
-    'o1-mini': {
-      encoding: 'o200k_base',
-      provider: 'openai',
-      name: 'O1 Mini',
-    },
     'gpt-4o': {
       encoding: 'o200k_base',
       provider: 'openai',
@@ -88,6 +83,10 @@ export let supportedModels = {
     },
     'claude-opus-4.1': {
       name: 'Claude Opus 4.1',
+      provider: 'anthropic',
+    },
+    'claude-opus-4.5': {
+      name: 'Claude Opus 4.5',
       provider: 'anthropic',
     },
     'claude-sonnet-4': {
