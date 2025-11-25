@@ -7,11 +7,11 @@ import { get_encoding as getTokenizerEncoding } from 'tiktoken'
 import { getModelConfig } from '../../core/get-model-config'
 import { countTokens } from '../../core/count-tokens'
 
-vi.mock('@anthropic-ai/tokenizer', () => ({
+vi.mock(import('@anthropic-ai/tokenizer'), () => ({
   countTokens: vi.fn((text: string) => Math.ceil(text.length / 4)),
 }))
 
-vi.mock('tiktoken', () => ({
+vi.mock(import('tiktoken'), () => ({
   // eslint-disable-next-line camelcase
   get_encoding: vi.fn(
     () =>
@@ -24,26 +24,8 @@ vi.mock('tiktoken', () => ({
   ),
 }))
 
-vi.mock('../../core/get-model-config', () => ({
+vi.mock(import('../../core/get-model-config'), () => ({
   getModelConfig: vi.fn(),
-}))
-
-vi.mock('../../data', () => ({
-  supportedModels: {
-    openai: {
-      'gpt-3.5-turbo': {
-        encoding: 'cl100k_base',
-        name: 'GPT-3.5 Turbo',
-        provider: 'openai',
-      },
-      'gpt-4o': { encoding: 'o200k_base', provider: 'openai', name: 'GPT-4o' },
-      'gpt-4': { encoding: 'cl100k_base', provider: 'openai', name: 'GPT-4' },
-    },
-    anthropic: {
-      'claude-3.5-sonnet': { name: 'Claude 3.5 Sonnet', provider: 'anthropic' },
-      'claude-3-opus': { name: 'Claude 3 Opus', provider: 'anthropic' },
-    },
-  },
 }))
 
 describe('countTokens', () => {

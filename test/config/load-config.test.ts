@@ -1,3 +1,5 @@
+import type { lilconfig as LilconfigFunction, AsyncSearcher } from 'lilconfig'
+
 import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest'
 import { relative, resolve, join } from 'node:path'
 
@@ -5,13 +7,24 @@ import type { TokenLimitConfig } from '../../types/token-limit-config'
 
 import { loadConfig } from '../../config/load-config'
 
-let mockExplorer = {
-  search: vi.fn(),
-  load: vi.fn(),
-}
+type LilconfigFactory = typeof LilconfigFunction
 
-vi.mock('lilconfig', () => ({
-  lilconfig: vi.fn(() => mockExplorer),
+let { mockLilconfig, mockExplorer } = vi.hoisted(() => {
+  let explorer = {
+    search: vi.fn<AsyncSearcher['search']>(),
+    load: vi.fn<AsyncSearcher['load']>(),
+    clearSearchCache: vi.fn(),
+    clearLoadCache: vi.fn(),
+    clearCaches: vi.fn(),
+  } satisfies AsyncSearcher
+
+  let lilconfigMock = vi.fn<LilconfigFactory>(() => explorer)
+
+  return { mockLilconfig: lilconfigMock, mockExplorer: explorer }
+})
+
+vi.mock(import('lilconfig'), () => ({
+  lilconfig: mockLilconfig,
 }))
 
 let originalCwd = process.cwd

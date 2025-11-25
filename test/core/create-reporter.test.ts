@@ -1,3 +1,4 @@
+import type { Formatter, Colors } from 'picocolors/types'
 import type { Writable } from 'node:stream'
 
 import { beforeEach, afterEach, describe, expect, it, vi } from 'vitest'
@@ -7,15 +8,36 @@ import type { ReporterConfig } from '../../types/reporter-config'
 
 import { createReporter } from '../../core/create-reporter'
 
-vi.mock('picocolors', () => ({
-  default: {
-    bgRed: (function_: (text: string) => string) => function_,
-    yellow: (text: string) => text,
-    black: (text: string) => text,
-    green: (text: string) => text,
-    bold: (text: string) => text,
-    red: (text: string) => text,
-  },
+type MockedColors = Pick<
+  Colors,
+  'yellow' | 'bgRed' | 'black' | 'green' | 'bold' | 'red'
+>
+
+let { mockColors } = vi.hoisted(() => {
+  let format: Formatter = value => String(value ?? '')
+
+  let baseColors: MockedColors = {
+    yellow: format,
+    bgRed: format,
+    black: format,
+    green: format,
+    bold: format,
+    red: format,
+  }
+
+  let colors: { createColors(enabled?: boolean): MockedColors } & MockedColors =
+    {
+      ...baseColors,
+      createColors: vi.fn<(enabled?: boolean) => MockedColors>(
+        () => baseColors,
+      ),
+    }
+
+  return { mockColors: colors }
+})
+
+vi.mock<{ default: MockedColors }>(import('picocolors'), () => ({
+  default: mockColors,
 }))
 
 function createMockProcess(): {

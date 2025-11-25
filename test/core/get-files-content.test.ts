@@ -6,7 +6,7 @@ import { glob } from 'tinyglobby'
 
 import { getFilesContent } from '../../core/get-files-content'
 
-vi.mock('tinyglobby', () => ({
+vi.mock(import('tinyglobby'), () => ({
   glob: vi.fn(),
 }))
 

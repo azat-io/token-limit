@@ -7,9 +7,9 @@ import { getFilesContent } from '../../core/get-files-content'
 import { countTokens } from '../../core/count-tokens'
 import { runChecks } from '../../core/run-checks'
 
-vi.mock('../../core/get-files-content')
-vi.mock('../../core/count-tokens')
-vi.mock('../../core/parse-limits')
+vi.mock(import('../../core/get-files-content'))
+vi.mock(import('../../core/count-tokens'))
+vi.mock(import('../../core/parse-limits'))
 
 let mockGetFilesContent = vi.mocked(getFilesContent)
 let mockCountTokens = vi.mocked(countTokens)
