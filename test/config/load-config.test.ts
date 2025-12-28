@@ -102,7 +102,7 @@ describe('loadConfig', () => {
 
     mockExplorer.search.mockResolvedValue(null)
 
-    await expect(loadConfig()).rejects.toThrow(
+    await expect(loadConfig()).rejects.toThrowError(
       'Token limit configuration not found',
     )
   })
@@ -430,7 +430,7 @@ describe('loadConfig', () => {
 
     mockExplorer.load.mockResolvedValue(null)
 
-    await expect(loadConfig('/nonexistent/config.js')).rejects.toThrow(
+    await expect(loadConfig('/nonexistent/config.js')).rejects.toThrowError(
       'Token limit configuration not found',
     )
   })
