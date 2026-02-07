@@ -11,11 +11,11 @@ type LilconfigFactory = typeof LilconfigFunction
 
 let { mockLilconfig, mockExplorer } = vi.hoisted(() => {
   let explorer = {
+    clearSearchCache: vi.fn<AsyncSearcher['clearSearchCache']>(),
+    clearLoadCache: vi.fn<AsyncSearcher['clearLoadCache']>(),
+    clearCaches: vi.fn<AsyncSearcher['clearCaches']>(),
     search: vi.fn<AsyncSearcher['search']>(),
     load: vi.fn<AsyncSearcher['load']>(),
-    clearSearchCache: vi.fn(),
-    clearLoadCache: vi.fn(),
-    clearCaches: vi.fn(),
   } satisfies AsyncSearcher
 
   let lilconfigMock = vi.fn<LilconfigFactory>(() => explorer)
