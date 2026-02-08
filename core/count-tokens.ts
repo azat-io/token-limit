@@ -37,7 +37,7 @@ import { supportedModels } from '../data'
  * @param model - The AI model identifier. Supported formats:
  *
  *   - OpenAI: 'gpt-4', 'gpt-4-turbo', 'gpt-3.5-turbo', etc.
- *   - Anthropic: 'claude-3.5-sonnet', 'claude-3-opus', 'claude-3-haiku', etc.
+ *   - Anthropic: 'claude-3.5-sonnet', 'claude-3-haiku', etc.
  *   - Custom: Any string (will use GPT-4 tokenizer as fallback).
  *
  * @returns The number of tokens in the provided text according to the model's

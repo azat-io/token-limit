@@ -259,14 +259,13 @@ describe('validateConfig', () => {
   })
 
   it('should accept known models', () => {
-    expect.assertions(5)
+    expect.assertions(4)
 
     let knownModels = [
       'gpt-4',
       'gpt-4-turbo',
       'gpt-3.5-turbo',
       'claude-3.5-sonnet',
-      'claude-3-opus',
     ] as SupportedModelNames[]
 
     for (let model of knownModels) {

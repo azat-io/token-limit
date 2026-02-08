@@ -381,12 +381,11 @@ describe('createReporter', () => {
       })
 
       it('should format all supported models correctly', () => {
-        expect.assertions(3)
+        expect.assertions(2)
 
         let reporter = createReporter(mockProcess, false)
         let testModels = [
           { expected: 'GPT-4', input: 'gpt-4' },
-          { expected: 'Claude 3 Opus', input: 'claude-3-opus' },
           { expected: 'GPT-3.5 Turbo', input: 'gpt-3.5-turbo' },
         ]
 

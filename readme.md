@@ -156,21 +156,21 @@ Token Limit supports multiple configuration formats to suit your project needs. 
 - `gpt-4-turbo`
 - `gpt-4`
 - `gpt-3.5-turbo`
-- `o1`
 - `o3-mini`
+- `o1`
 
 **Anthropic Models**
 
-- `claude-opus-4`
-- `claude-opus-4.1`
+- `claude-opus-4.6`
 - `claude-opus-4.5`
 - `claude-sonnet-4.5`
 - `claude-haiku-4.5`
+- `claude-opus-4.1`
+- `claude-opus-4`
 - `claude-sonnet-4`
 - `claude-3.7-sonnet`
 - `claude-3.5-sonnet`
 - `claude-3.5-haiku`
-- `claude-3-opus`
 
 ### Limit Formats
 

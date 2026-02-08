@@ -89,13 +89,13 @@ export let supportedModels = {
       name: 'Claude Opus 4.5',
       provider: 'anthropic',
     },
+    'claude-opus-4.6': {
+      name: 'Claude Opus 4.6',
+      provider: 'anthropic',
+    },
     'claude-sonnet-4': {
       name: 'Claude Sonnet 4',
       provider: 'anthropic',
-    },
-    'claude-3-opus': {
-      provider: 'anthropic',
-      name: 'Claude 3 Opus',
     },
     'claude-opus-4': {
       name: 'Claude Opus 4',
