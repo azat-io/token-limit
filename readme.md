@@ -3,9 +3,8 @@
 <img
   src="https://raw.githubusercontent.com/azat-io/token-limit/main/assets/logo.svg"
   alt="Token Limit logo"
-  width="160"
-  height="160"
   align="right"
+  width="160"
 />
 
 [![Version](https://img.shields.io/npm/v/token-limit.svg?color=23a56f&labelColor=2496d6)](https://npmjs.com/package/token-limit)
