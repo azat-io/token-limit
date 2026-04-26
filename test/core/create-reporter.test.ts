@@ -208,7 +208,7 @@ describe('createReporter', () => {
             passed: undefined,
             model: '',
             files: [],
-          } as unknown as TokenCheckResult),
+          }),
         ],
       })
 
@@ -601,7 +601,7 @@ describe('createReporter', () => {
             createTestCheck({
               name: 'Test Check',
               passed: undefined, // This makes first condition undefined
-            } as unknown as TokenCheckResult),
+            }),
           ],
           hidePassed: false,
         })
@@ -828,7 +828,7 @@ describe('createReporter', () => {
           createTestCheck({
             tokenLimit: undefined,
             passed: undefined,
-          } as unknown as TokenCheckResult),
+          }),
         ],
       })
 
@@ -921,7 +921,7 @@ describe('createReporter', () => {
           createTestCheck({
             tokenLimit: undefined,
             passed: undefined,
-          } as unknown as TokenCheckResult),
+          }),
         ],
       })
 
@@ -1042,7 +1042,7 @@ describe('createReporter', () => {
             tokenLimit: undefined,
             model: '',
             files: [],
-          } as unknown as TokenCheckResult),
+          }),
         ],
       })
 

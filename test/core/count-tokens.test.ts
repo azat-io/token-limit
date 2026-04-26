@@ -96,9 +96,7 @@ describe('countTokens', () => {
         name: 'Custom Model',
         provider: 'custom',
       }
-      vi.mocked(getModelConfig).mockReturnValue(
-        mockModelConfig as ReturnType<typeof getModelConfig>,
-      )
+      vi.mocked(getModelConfig).mockReturnValue(mockModelConfig)
 
       let result = countTokens('Hello world', 'custom-model')
 

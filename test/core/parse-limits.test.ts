@@ -21,16 +21,16 @@ describe('parseLimit', () => {
     it('should throw error for invalid numeric token limits', () => {
       expect.assertions(4)
 
-      expect(() => parseLimit(-1, '')).toThrowError(
+      expect(() => parseLimit(-1, '')).toThrow(
         'Invalid token limit: -1. Must be a positive finite number.',
       )
-      expect(() => parseLimit(Number.NEGATIVE_INFINITY, '')).toThrowError(
+      expect(() => parseLimit(Number.NEGATIVE_INFINITY, '')).toThrow(
         'Invalid token limit: -Infinity. Must be a positive finite number.',
       )
-      expect(() => parseLimit(Number.POSITIVE_INFINITY, '')).toThrowError(
+      expect(() => parseLimit(Number.POSITIVE_INFINITY, '')).toThrow(
         'Invalid token limit: Infinity. Must be a positive finite number.',
       )
-      expect(() => parseLimit(Number.NaN, '')).toThrowError(
+      expect(() => parseLimit(Number.NaN, '')).toThrow(
         'Invalid token limit: NaN. Must be a positive finite number.',
       )
     })
@@ -38,13 +38,13 @@ describe('parseLimit', () => {
     it('should throw error for invalid token limit values in strings', () => {
       expect.assertions(3)
 
-      expect(() => parseLimit('-1k', '')).toThrowError(
+      expect(() => parseLimit('-1k', '')).toThrow(
         'Invalid token limit format: "-1k"',
       )
-      expect(() => parseLimit('NaNk', '')).toThrowError(
+      expect(() => parseLimit('NaNk', '')).toThrow(
         'Invalid token limit format: "NaNk"',
       )
-      expect(() => parseLimit('Infinity', '')).toThrowError(
+      expect(() => parseLimit('Infinity', '')).toThrow(
         'Invalid token limit format: "Infinity"',
       )
     })
@@ -93,13 +93,13 @@ describe('parseLimit', () => {
     it('should throw error for invalid token format', () => {
       expect.assertions(3)
 
-      expect(() => parseLimit('invalid', '')).toThrowError(
+      expect(() => parseLimit('invalid', '')).toThrow(
         'Invalid token limit format: "invalid"',
       )
-      expect(() => parseLimit('1x', '')).toThrowError(
+      expect(() => parseLimit('1x', '')).toThrow(
         'Invalid token limit format: "1x"',
       )
-      expect(() => parseLimit('abc123', '')).toThrowError(
+      expect(() => parseLimit('abc123', '')).toThrow(
         'Invalid cost limit format: "abc123"',
       )
     })
@@ -107,10 +107,10 @@ describe('parseLimit', () => {
     it('should throw error for invalid cost format', () => {
       expect.assertions(2)
 
-      expect(() => parseLimit('$invalid', '')).toThrowError(
+      expect(() => parseLimit('$invalid', '')).toThrow(
         'Invalid cost limit format: "$invalid"',
       )
-      expect(() => parseLimit('invalid dollars', '')).toThrowError(
+      expect(() => parseLimit('invalid dollars', '')).toThrow(
         'Invalid cost limit format: "invalid dollars"',
       )
     })
@@ -118,16 +118,16 @@ describe('parseLimit', () => {
     it('should throw error for invalid cost limit values in strings', () => {
       expect.assertions(4)
 
-      expect(() => parseLimit('$-1', '')).toThrowError(
+      expect(() => parseLimit('$-1', '')).toThrow(
         'Invalid cost limit format: "$-1"',
       )
-      expect(() => parseLimit('-5c', '')).toThrowError(
+      expect(() => parseLimit('-5c', '')).toThrow(
         'Invalid cost limit format: "-5c"',
       )
-      expect(() => parseLimit('-1 dollar', '')).toThrowError(
+      expect(() => parseLimit('-1 dollar', '')).toThrow(
         'Invalid cost limit format: "-1 dollar"',
       )
-      expect(() => parseLimit('-10 cents', '')).toThrowError(
+      expect(() => parseLimit('-10 cents', '')).toThrow(
         'Invalid cost limit format: "-10 cents"',
       )
     })
@@ -145,20 +145,16 @@ describe('parseLimit', () => {
     it('should throw error for invalid numeric cost limits', () => {
       expect.assertions(4)
 
-      expect(() => parseLimit({ cost: -1 }, '')).toThrowError(
+      expect(() => parseLimit({ cost: -1 }, '')).toThrow(
         'Invalid cost limit: -1. Must be a positive finite number.',
       )
-      expect(() =>
-        parseLimit({ cost: Number.NEGATIVE_INFINITY }, ''),
-      ).toThrowError(
+      expect(() => parseLimit({ cost: Number.NEGATIVE_INFINITY }, '')).toThrow(
         'Invalid cost limit: -Infinity. Must be a positive finite number.',
       )
-      expect(() =>
-        parseLimit({ cost: Number.POSITIVE_INFINITY }, ''),
-      ).toThrowError(
+      expect(() => parseLimit({ cost: Number.POSITIVE_INFINITY }, '')).toThrow(
         'Invalid cost limit: Infinity. Must be a positive finite number.',
       )
-      expect(() => parseLimit({ cost: Number.NaN }, '')).toThrowError(
+      expect(() => parseLimit({ cost: Number.NaN }, '')).toThrow(
         'Invalid cost limit: NaN. Must be a positive finite number.',
       )
     })

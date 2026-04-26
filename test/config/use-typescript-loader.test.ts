@@ -129,7 +129,7 @@ export default [
 
     await expect(
       useTypescriptLoader('/non-existent/path/config.ts'),
-    ).rejects.toThrowError()
+    ).rejects.toThrow()
   })
 
   it('should throw error for invalid TypeScript syntax', async () => {
@@ -144,7 +144,7 @@ export default [
 
     await writeFile(configPath, configContent)
 
-    await expect(useTypescriptLoader(configPath)).rejects.toThrowError()
+    await expect(useTypescriptLoader(configPath)).rejects.toThrow()
   })
 
   it('should handle TypeScript file without default export', async () => {

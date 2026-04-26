@@ -82,7 +82,7 @@ describe('useBaseLoader', () => {
 
     await expect(
       useBaseLoader('/non-existent/path/config.js'),
-    ).rejects.toThrowError()
+    ).rejects.toThrow()
   })
 
   it('should throw error for invalid JavaScript syntax', async () => {
@@ -96,7 +96,7 @@ describe('useBaseLoader', () => {
 
     await writeFile(configPath, configContent)
 
-    await expect(useBaseLoader(configPath)).rejects.toThrowError()
+    await expect(useBaseLoader(configPath)).rejects.toThrow()
   })
 
   it('should handle module without default export', async () => {
